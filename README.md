@@ -12,9 +12,9 @@
 
 ## SCSS
 
-- [ ] Set up initial display-nones ready for DOM manipulation on start
-- [ ] Choose and install a google font to keep the right vibe.
-- [ ] choose background colour & setup palette (likely B&W for most but want colours to change in certain chapters);
+- [x] Set up initial display-nones ready for DOM manipulation on start
+- [x] Choose and install a google font to keep the right vibe.
+- [x] choose background colour & setup palette (likely B&W for most but want colours to change in certain chapters);
 - [ ] music mute and sound graphic needed for the main page
 - [x] Set up palette
 - [x] Set up device mixins
@@ -23,10 +23,12 @@
 
 - [x] Query Selectors
 - [ ] Event handlers
+
   - [ ] Button complete
-        1 [ ] Update the text of the dom depending on object data
-        2 [ ] Update text buttons without deleting them, and hide the ones not used
-        3 [ ]
+
+    1 [x] to be put inside the event listener (when button is clicked)
+    2 [ ] should change the text of the text-zone and the button-zones
+    3 [ ] should fade between and add buttons if necessary
 
 ## API & Processing CSVs
 

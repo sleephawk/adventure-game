@@ -27,6 +27,8 @@ $white: #d7e4ecff;
   align-items: center;
   text-align: center;
   flex-grow: 1;
+  padding: 0;
+  margin: 0; //reset defaults
 }
 
 /*-----------*/
@@ -38,8 +40,7 @@ h1 {
 button {
   font-family: $font;
   background-color: $black;
-  padding: 30px;
-  border-radius: 50%;
+
   border: none;
   color: $white;
   font-size: 2rem;
@@ -55,6 +56,11 @@ button:active {
 }
 /*-----------*/
 
+.begin {
+  padding: 30px;
+  border-radius: 50%;
+}
+
 .game-zone {
   width: 100vw;
   height: 100vh;
@@ -62,7 +68,6 @@ button:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: $red;
 
   &__quote-zone {
     position: absolute;
@@ -80,7 +85,27 @@ button:active {
     }
   }
 
+  &__text-zone {
+    @include mixin.hidden;
+    flex-direction: column; //for when display = flex (DOM);
+    width: 200px;
+    border: $red;
+    position: absolute;
+  }
+
   &__btn-zone {
     @include mixin.hidden;
+    border: $blue;
+    position: absolute;
+    $btn-zone-width: 400px;
+    width: $btn-zone-width;
+    height: $btn-zone-width;
+    border-radius: 50%;
+
+    &--btn {
+      font-size: 0.75rem;
+      position: absolute;
+      width: 70px;
+    }
   }
 }
