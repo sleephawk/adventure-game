@@ -19,7 +19,6 @@ $white: #d7e4ecff;
 }
 
 :root {
-  @include mixin.centerElement;
   font-family: $font;
   background-color: $black;
   color: $white;
@@ -57,9 +56,28 @@ button:active {
 /*-----------*/
 
 .game-zone {
-  &__quote {
-    @include mixin.hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: $red;
+
+  &__quote-zone {
     position: absolute;
+    opacity: 0;
+    width: 60%;
+    flex-direction: column;
+    gap: 30px;
+
+    &--text {
+      font-style: italic;
+    }
+
+    &--author {
+      font-weight: bolder;
+    }
   }
 
   &__btn-zone {
