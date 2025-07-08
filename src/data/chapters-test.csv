@@ -1,4 +1,0 @@
-chapterID,text,options
-1,"The world drifts away as you go back to sleep. After what seems like seconds, you're sharply awoken by the sound of sirens outside you're house. They sound so close they could  be right at the door. Do you:","""go back to sleep+2; check it out+3"""
-2,CHAPTER 2 ,"""hello+4; goodbye+5"""
-3,CHAPTER 3,"""yes+6; no+7"""
