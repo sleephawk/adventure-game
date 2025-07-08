@@ -1,4 +1,5 @@
-declare module "*.csv" {
-  const value: any;
-  export default value;
+// papaparse.d.ts
+declare module "papaparse" {
+  const Papa: any;
+  export default Papa;
 }

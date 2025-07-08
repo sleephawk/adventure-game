@@ -3,20 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cascadia+Mono:ital,wght@0,200..700;1,200..700&family=Forum&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libertinus+Math&family=Orbitron:wght@400..900&family=Press+Start+2P&family=Rouge+Script&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="game-zone">
-      <h1></h1>
-      <p id="quote-zone--quote">
+    <div id="game-zone" class="game-zone">
+
+      <h1 id="title">Welcome</h1>
+      <button id="begin">Begin</button>
+
+      <p id="quote" class="game-zone__quote game-zone__quote--text">
         “Little solace comes to those who grieve when thoughts keep drifting as
         walls keep shifting and this great blue world of ours seems a house of
         leaves moments before the wind.” 
-        <p id="quote-zone--author">Mark Z. Danielewski, House of Leaves</p>
-        
+        <p id="author" class="game-zone__quote game-zone__quote--author">Mark Z. Danielewski, House of Leaves</p>
       </p>
-      <p id="text-zone"></p>
+
+      <p id="text-zone" class="game-zone__text-zone"></p>
+
+      <div class="game-zone__btn-zone">
+        <button id="btn-1" class="game-zone__btn-zone--btn"></button>
+        <button id="btn-2" class="game-zone__btn-zone--btn"></button>
+        <button id="btn-3" class="game-zone__btn-zone--btn"></button>
+        <button id="btn-4" class="game-zone__btn-zone--btn"></button>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
