@@ -1,18 +1,21 @@
 @use "../src/scss-modules/devices.scss";
 @use "../src/scss-modules/mixin.scss";
 
-/*-------------*/
+/*-------------*/ //Variables
+//borders
 $red: solid 3px red;
 $blue: solid 3px blue;
 $green: solid 3px green;
-
-$font: "Libertinus Math", system-UI;
-
+//core colours
 $black: #010101ff;
 $dark-grey: #2a363eff;
 $paynes-grey: #586b79ff;
 $light-grey: #a7b4bdff;
 $white: #d7e4ecff;
+//font
+$font: "Libertinus Math", system-UI;
+//button zone size
+$btn-zone-width: 400px;
 /*-------------*/
 * {
   transition: opacity 1s linear;
@@ -40,7 +43,9 @@ h1 {
 button {
   font-family: $font;
   background-color: $black;
-
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
   border: none;
   color: $white;
   font-size: 2rem;
@@ -56,9 +61,11 @@ button:active {
 }
 /*-----------*/
 
-.begin {
-  padding: 30px;
+#begin {
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
+  background-color: none;
 }
 
 .game-zone {
@@ -89,23 +96,39 @@ button:active {
     @include mixin.hidden;
     flex-direction: column; //for when display = flex (DOM);
     width: 200px;
-    border: $red;
     position: absolute;
   }
 
   &__btn-zone {
     @include mixin.hidden;
-    border: $blue;
+    box-shadow: 0px 0px 30px $paynes-grey;
     position: absolute;
-    $btn-zone-width: 400px;
     width: $btn-zone-width;
     height: $btn-zone-width;
     border-radius: 50%;
 
     &--btn {
-      font-size: 0.75rem;
       position: absolute;
-      width: 70px;
+      font-size: 1rem;
     }
   }
+}
+
+#btn-1 {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+#btn-2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 0);
+}
+#btn-3 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 0);
 }

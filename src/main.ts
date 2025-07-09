@@ -1,7 +1,8 @@
 import "./style.scss";
 import { chapter1 } from "./Chapters/chapter1";
 import { scenes } from "./data/parse-csv";
-console.log(scenes.data[0].prevId);
+
+// console.log(scenes.data[0].prevId);
 
 //Query Selectors:
 
@@ -42,20 +43,20 @@ begin.addEventListener("click", () => {
   setTimeout(() => {
     quoteZone.style.opacity = "0"; // fade out quote
   }, 10000);
-  setTimeout(() => {
-    title.textContent = "Chapter 1"; // cut in Chapter 1
-    title.style.display = "block";
-    title.style.opacity = "1";
-  }, 11000);
-  setTimeout(() => {
-    title.style.opacity = "0"; // fade out Chapter 1
-  }, 13000);
+  // setTimeout(() => {
+  //   title.textContent = "Chapter 1"; // cut in Chapter 1
+  //   title.style.display = "block";
+  //   title.style.opacity = "1";
+  // }, 11000);
+  // setTimeout(() => {
+  //   title.style.opacity = "0"; // fade out Chapter 1
+  // }, 13000);
   setTimeout(() => {
     textZone.style.display = "flex";
     textZone.style.opacity = "1";
     btnZone.style.display = "flex";
     btnZone.style.opacity = "1";
-  }, 15000);
+  }, 11000);
   document
     .querySelectorAll(".game-zone__btn-zone--btn")
     .forEach((btn) => btn.addEventListener("click", (e) => btnHandler(1, e))); //button handler chapter 1
@@ -91,4 +92,4 @@ const btnHandler: Function = (chapter: number, e: Event): void => {
 
 //currently only adds event listener one
 
-console.log(chapter1[2]);
+// console.log(chapter1[2]);

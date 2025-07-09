@@ -18,22 +18,25 @@
 - [ ] music mute and sound graphic needed for the main page
 - [x] Set up palette
 - [x] Set up device mixins
+- [ ] Position options round the circle in equal measure
+- [ ] format buttons overall
+- [ ] combine 'chapter 1' with quote
 
 ## Logic
 
 - [x] Query Selectors
-- [ ] Event handlers
+- [x] Event handlers
 
   - [ ] Button complete
 
     1 [x] to be put inside the event listener (when button is clicked)
-    2 [ ] should change the text of the text-zone and the button-zones
-    3 [ ] should fade between and add buttons if necessary
+    2 [x] should change the text of the text-zone and the button-zones
+    3 [x] should fade between
 
 ## API & Processing CSVs
 
 - From Vite, we have a CSV converter so that we can use a local spreadsheet in src/ data that will provide all the options for the responses object. This avoids hundreds of lines of code.
   The vite.config.ts is what allows me to use this in the project.
 - Further setup was needed by adding a types.d.ts file, which declares csv files as an any type and therefore can be imported without confusion from TS.
-- I then updates the tsconfig file to 'include' the types file, and this led to it work.
+- I then updated the tsconfig file to 'include' the types file, and this led to it work.
 - A large portion of time was spent trying to figure out vite csv converter without being able to find the documentation. I eventually restarted with Papaparse as it is more supported.
