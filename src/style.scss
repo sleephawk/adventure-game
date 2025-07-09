@@ -14,8 +14,7 @@ $light-grey: #a7b4bdff;
 $white: #d7e4ecff;
 //font
 $font: "Libertinus Math", system-UI;
-//button zone size
-$btn-zone-width: 400px;
+
 /*-------------*/
 
 :root {
@@ -106,23 +105,22 @@ audio {
     @include mixin.hidden;
     flex-direction: column; //for when display = flex (DOM);
     width: 200px;
-    position: absolute;
+    padding: 80px;
+
     transition: opacity 1s linear;
+    box-shadow: 0px 0px 30px $paynes-grey;
   }
 
   &__btn-zone {
     @include mixin.hidden;
-    box-shadow: 0px 0px 30px $paynes-grey;
-    position: absolute;
-    width: $btn-zone-width;
-    height: $btn-zone-width;
-    border-radius: 50%;
+    flex-direction: column;
+    gap: 50px;
+    box-sizing: border-box;
     transition: opacity 1s linear;
     transform-origin: center center;
     animation: wheel 90s linear infinite;
 
     &--btn {
-      position: absolute;
       font-size: 1rem;
       transition: opacity 1s linear;
       transform-origin: center center;
@@ -131,20 +129,11 @@ audio {
 }
 
 #btn-1 {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
 }
 #btn-2 {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  transform: translate(-50%, 0);
+  position: relative;
 }
 #btn-3 {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translate(50%, 0);
+  position: relative;
 }

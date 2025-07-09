@@ -57,6 +57,8 @@ begin.addEventListener("click", () => {
     textZone.style.opacity = "1";
     btnZone.style.display = "flex";
     btnZone.style.opacity = "1";
+    gameZone.style.flexDirection = "row";
+    gameZone.style.gap = "50px";
   }, 11000);
 });
 

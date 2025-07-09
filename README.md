@@ -3,10 +3,9 @@
 ## HTML
 
 - [x] Create a container that includes elements for text, and a container to hold all elements
-      (choice buttons will be created by DOM);
 - [x] Create game heading and start button (decide on title)
 - [x] Create quote for opening
-- [ ] research how to include music & create relevant element.
+- [x] research how to include music & create relevant element.
 - [ ] fixed floating mute button
 - [ ] relevant floating & animated gifs/ svgs (research correct format for animations)
 
@@ -20,14 +19,16 @@
 - [x] Set up device mixins
 - [x] Position options round the circle in equal measure
 - [x] format buttons overall
-- [ ] combine 'chapter 1' with quote
+- [x] combine 'chapter 1' with quote
+- [ ] rethink page layout since rotate animation too time consuming for too little payoff
+- [ ] create slider volume bar
 
 ## Logic
 
 - [x] Query Selectors
 - [x] Event handlers
 
-  - [ ] Button complete
+  - [x] Button complete
 
     1 [x] to be put inside the event listener (when button is clicked)
     2 [x] should change the text of the text-zone and the button-zones
@@ -35,7 +36,14 @@
 
 - [ ] Upload more robust story file
 - [ ] Create logic for win and lose con
-- [ ] create logic for chance die
+- [x] create logic for chance die
+
+  - [ ] Music module
+
+    1 [ ] Create or source music
+    2 [ ] search for folie & create fx
+    3 [ ] create volume bar graphic
+    4 [ ] Create a module that starts and plays music depending on the current chapter and scene.
 
 ## API & Processing CSVs
 
