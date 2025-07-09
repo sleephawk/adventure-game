@@ -18,8 +18,8 @@
 - [ ] music mute and sound graphic needed for the main page
 - [x] Set up palette
 - [x] Set up device mixins
-- [ ] Position options round the circle in equal measure
-- [ ] format buttons overall
+- [x] Position options round the circle in equal measure
+- [x] format buttons overall
 - [ ] combine 'chapter 1' with quote
 
 ## Logic
@@ -32,6 +32,10 @@
     1 [x] to be put inside the event listener (when button is clicked)
     2 [x] should change the text of the text-zone and the button-zones
     3 [x] should fade between
+
+- [ ] Upload more robust story file
+- [ ] Create logic for win and lose con
+- [ ] create logic for chance die
 
 ## API & Processing CSVs
 

@@ -1,24 +1,10 @@
 import { scenes } from "../data/parse-csv";
 
-export type Scene = {
-  id: number;
-  fromId: number;
-  text: string;
-  optionAmt: number;
-  options: Option[];
-};
-
-export type Option = {
-  text: string;
-  nextSceneId: number;
-};
-
 const createScene = (scene: number) => {
   return {
     id: scenes.data[scene].chapterId,
     fromId: scenes.data[scene].prevId,
     text: scenes.data[scene].text,
-    optionAmt: scenes.data[scene].optionAmt,
     options: [
       {
         text: scenes.data[scene].option1Txt,

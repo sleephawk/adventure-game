@@ -17,9 +17,6 @@ $font: "Libertinus Math", system-UI;
 //button zone size
 $btn-zone-width: 400px;
 /*-------------*/
-* {
-  transition: opacity 1s linear;
-}
 
 :root {
   font-family: $font;
@@ -38,7 +35,10 @@ $btn-zone-width: 400px;
 
 h1 {
   font-size: 5rem;
+  position: relative;
+  transition: opacity 1s linear;
 }
+// Might need a more meaningful allocation of id and class
 
 button {
   font-family: $font;
@@ -52,6 +52,7 @@ button {
   align-content: center;
   text-align: center;
   cursor: pointer;
+  transition: opacity 1s linear;
 }
 
 button:hover,
@@ -66,6 +67,7 @@ button:active {
   width: 100px;
   border-radius: 50%;
   background-color: none;
+  transition: opacity 1s linear;
 }
 
 .game-zone {
@@ -75,20 +77,24 @@ button:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: opacity 1s linear;
 
   &__quote-zone {
-    position: absolute;
+    display: none;
     opacity: 0;
     width: 60%;
     flex-direction: column;
     gap: 30px;
+    transition: opacity 1s linear;
 
     &--text {
       font-style: italic;
+      transition: opacity 1s linear;
     }
 
     &--author {
       font-weight: bolder;
+      transition: opacity 1s linear;
     }
   }
 
@@ -97,6 +103,7 @@ button:active {
     flex-direction: column; //for when display = flex (DOM);
     width: 200px;
     position: absolute;
+    transition: opacity 1s linear;
   }
 
   &__btn-zone {
@@ -106,10 +113,12 @@ button:active {
     width: $btn-zone-width;
     height: $btn-zone-width;
     border-radius: 50%;
+    transition: opacity 1s linear;
 
     &--btn {
       position: absolute;
       font-size: 1rem;
+      transition: opacity 1s linear;
     }
   }
 }

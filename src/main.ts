@@ -1,6 +1,7 @@
 import "./style.scss";
 import { chapter1 } from "./Chapters/chapter1";
 import { scenes } from "./data/parse-csv";
+import { rollDiceAndDecidePath } from "./ts-modules/roll-dice";
 
 // console.log(scenes.data[0].prevId);
 
@@ -33,25 +34,25 @@ if (!gameZone || !textZone || !quoteZone || !btnZone) {
 begin.addEventListener("click", () => {
   begin.style.opacity = "0";
   title.style.opacity = "0";
+
   setTimeout(() => {
+    quoteZone.style.display = "flex";
     begin.style.display = "none";
-    title.style.display = "none";
+    title.innerText = `Chapter 1`;
   }, 1000);
   setTimeout(() => {
+    title.style.opacity = "1";
+
+    title.style.fontSize = "3rem";
     quoteZone.style.opacity = "1"; // fade in quote
-  }, 1000);
+  }, 1200);
   setTimeout(() => {
+    title.style.opacity = "0";
     quoteZone.style.opacity = "0"; // fade out quote
   }, 10000);
-  // setTimeout(() => {
-  //   title.textContent = "Chapter 1"; // cut in Chapter 1
-  //   title.style.display = "block";
-  //   title.style.opacity = "1";
-  // }, 11000);
-  // setTimeout(() => {
-  //   title.style.opacity = "0"; // fade out Chapter 1
-  // }, 13000);
   setTimeout(() => {
+    title.style.display = "none";
+    quoteZone.style.display = "none";
     textZone.style.display = "flex";
     textZone.style.opacity = "1";
     btnZone.style.display = "flex";
@@ -75,21 +76,29 @@ const btnHandler: Function = (chapter: number, e: Event): void => {
     );
     if (option) {
       console.log(option.nextSceneId);
-      textZone.innerText = chapter1[option.nextSceneId].text;
-      btn1.innerText = chapter1[option.nextSceneId].options[0].text;
-      btn2.innerText = chapter1[option.nextSceneId].options[1].text;
-      btn3.innerText = chapter1[option.nextSceneId].options[2].text;
+      if (typeof option.nextSceneId === "string") {
+        setTimeout(function rollDice() {
+          textZone.innerText = chapter1[rollDiceAndDecidePath(option)].text;
+          btn2.innerText =
+            chapter1[rollDiceAndDecidePath(option)].options[0].text;
+          btn1.innerText =
+            chapter1[rollDiceAndDecidePath(option)].options[1].text;
+          btn3.innerText =
+            chapter1[rollDiceAndDecidePath(option)].options[2].text;
+          textZone.style.opacity = "1"; //may be able to refactor
+          btnZone.style.opacity = "1";
+        }, 5000); // may be able to refactor this
+        return;
+      }
+
+      textZone.innerText = chapter1[option.nextSceneId as number].text;
+      btn1.innerText = chapter1[option.nextSceneId as number].options[0].text;
+      btn2.innerText = chapter1[option.nextSceneId as number].options[1].text;
+      btn3.innerText = chapter1[option.nextSceneId as number].options[2].text;
     }
+    setTimeout(() => {
+      textZone.style.opacity = "1";
+      btnZone.style.opacity = "1";
+    }, 200);
   }
-  setTimeout(() => {
-    textZone.style.opacity = "1";
-    btnZone.style.opacity = "1";
-  }, 200);
-
-  //the button should know where to look based on the chapter number
-  //if it's 1, the button should look through chapter1
 };
-
-//currently only adds event listener one
-
-// console.log(chapter1[2]);
