@@ -1,7 +1,7 @@
 import "./style.scss";
 import { chapter1 } from "./Chapters/chapter1";
-import { scenes } from "./data/parse-csv";
 import { rollDiceAndDecidePath } from "./ts-modules/roll-dice";
+import { gameState } from "./ts-modules/game-state";
 
 // console.log(scenes.data[0].prevId);
 
@@ -58,47 +58,56 @@ begin.addEventListener("click", () => {
     btnZone.style.display = "flex";
     btnZone.style.opacity = "1";
   }, 11000);
-  document
-    .querySelectorAll(".game-zone__btn-zone--btn")
-    .forEach((btn) => btn.addEventListener("click", (e) => btnHandler(1, e))); //button handler chapter 1
 });
 
-//btn (choice/ option) handler
-const btnHandler: Function = (chapter: number, e: Event): void => {
-  //for TS make sure the event target is a button
-  if (!(e.target instanceof HTMLButtonElement)) return;
-  const button = e.target;
-  textZone.style.opacity = "0";
-  btnZone.style.opacity = "0";
-  if (chapter === 1) {
-    const option = chapter1[0].options.find(
-      (opt) => opt.text === button.innerText
-    );
-    if (option) {
-      console.log(option.nextSceneId);
-      if (typeof option.nextSceneId === "string") {
-        setTimeout(function rollDice() {
-          textZone.innerText = chapter1[rollDiceAndDecidePath(option)].text;
-          btn2.innerText =
-            chapter1[rollDiceAndDecidePath(option)].options[0].text;
-          btn1.innerText =
-            chapter1[rollDiceAndDecidePath(option)].options[1].text;
-          btn3.innerText =
-            chapter1[rollDiceAndDecidePath(option)].options[2].text;
-          textZone.style.opacity = "1"; //may be able to refactor
-          btnZone.style.opacity = "1";
-        }, 5000); // may be able to refactor this
-        return;
-      }
+document.querySelectorAll(".game-zone__btn-zone--btn").forEach((btn) =>
+  btn.addEventListener("click", (e) => {
+    //for TS make sure the event target is a button
+    if (!(e.target instanceof HTMLButtonElement)) return;
 
-      textZone.innerText = chapter1[option.nextSceneId as number].text;
-      btn1.innerText = chapter1[option.nextSceneId as number].options[0].text;
-      btn2.innerText = chapter1[option.nextSceneId as number].options[1].text;
-      btn3.innerText = chapter1[option.nextSceneId as number].options[2].text;
+    const button = e.target;
+    textZone.style.opacity = "0";
+    btnZone.style.opacity = "0";
+
+    if (gameState.chapterNumber === 1) {
+      setTimeout(() => {
+        textZone.style.opacity = "1";
+        btnZone.style.opacity = "1";
+        const option = chapter1[gameState.sceneNumber].options.find(
+          (opt) => opt.text === button.innerText
+        );
+
+        if (option) {
+          console.log(`Next scene to go to is ${option.nextSceneId}`);
+          if (
+            typeof option.nextSceneId === "string" &&
+            option.nextSceneId.includes("x")
+          ) {
+            setTimeout(function rollDice() {
+              const randomIndex = rollDiceAndDecidePath(option);
+              textZone.innerText = chapter1[randomIndex].text;
+              btn2.innerText = chapter1[randomIndex].options[0].text;
+              btn1.innerText = chapter1[randomIndex].options[1].text;
+              btn3.innerText = chapter1[randomIndex].options[2].text;
+              textZone.style.opacity = "1"; //may be able to refactor
+              btnZone.style.opacity = "1";
+              gameState.sceneNumber = randomIndex;
+            }, 5000); // may be able to refactor this
+            return;
+          } else {
+            textZone.innerText = chapter1[Number(option.nextSceneId)].text;
+            btn1.innerText =
+              chapter1[Number(option.nextSceneId)].options[0].text;
+            btn2.innerText =
+              chapter1[Number(option.nextSceneId)].options[1].text;
+            btn3.innerText =
+              chapter1[Number(option.nextSceneId)].options[2].text;
+            gameState.sceneNumber = Number(option.nextSceneId);
+          }
+        }
+        textZone.style.opacity = "1";
+        btnZone.style.opacity = "1";
+      }, 700);
     }
-    setTimeout(() => {
-      textZone.style.opacity = "1";
-      btnZone.style.opacity = "1";
-    }, 200);
-  }
-};
+  })
+); //button handler chapter 1

@@ -27,4 +27,6 @@ export const chapter1: Scene[] = [
   createScene(1),
   createScene(2),
   createScene(3),
+  createScene(4),
+  createScene(5),
 ];
