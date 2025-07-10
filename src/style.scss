@@ -106,8 +106,8 @@ audio {
     flex-direction: column; //for when display = flex (DOM);
     width: 200px;
     padding: 80px;
-
-    transition: opacity 1s linear;
+    z-index: 1;
+    transition: opacity 1s linear, transform 2s linear;
     box-shadow: 0px 0px 30px $paynes-grey;
   }
 
@@ -115,15 +115,13 @@ audio {
     @include mixin.hidden;
     flex-direction: column;
     gap: 50px;
+    position: relative;
     box-sizing: border-box;
     transition: opacity 1s linear;
-    transform-origin: center center;
-    animation: wheel 90s linear infinite;
 
     &--btn {
       font-size: 1rem;
       transition: opacity 1s linear;
-      transform-origin: center center;
     }
   }
 }
@@ -136,4 +134,18 @@ audio {
 }
 #btn-3 {
   position: relative;
+}
+
+//Fade Out
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fade-out {
+  animation: fade-out 10s ease-in forwards;
 }

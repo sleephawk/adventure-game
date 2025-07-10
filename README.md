@@ -22,11 +22,14 @@
 - [x] combine 'chapter 1' with quote
 - [ ] rethink page layout since rotate animation too time consuming for too little payoff
 - [ ] create slider volume bar
+- [ ] create a for loop once the scenes are created
 
 ## Logic
 
 - [x] Query Selectors
 - [x] Event handlers
+- [ ] Console log dice roll logic to confirm checks are taking place
+      as intended
 
   - [x] Button complete
 
@@ -37,6 +40,7 @@
 - [ ] Upload more robust story file
 - [ ] Create logic for win and lose con
 - [x] create logic for chance die
+- [ ] update dice logic to only have 2 options and to be 6 / 2 
 
   - [ ] Music module
 

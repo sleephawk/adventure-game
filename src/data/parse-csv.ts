@@ -1,8 +1,10 @@
 import Papa from "papaparse";
 import csvData from "../data/scene-test.csv?raw";
 
-export const scenes = Papa.parse(csvData, {
+const scenes = Papa.parse(csvData, {
   header: true, // first row is header
   skipEmptyLines: true,
   dynamicTyping: true, // convert numbers automatically
 });
+
+export default scenes;

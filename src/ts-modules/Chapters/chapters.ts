@@ -1,4 +1,4 @@
-import { scenes } from "../data/parse-csv";
+import scenes from "../../data/parse-csv";
 
 const createScene = (scene: number) => {
   return {
@@ -22,11 +22,8 @@ const createScene = (scene: number) => {
   };
 };
 
-export const chapter1: Scene[] = [
-  createScene(0),
-  createScene(1),
-  createScene(2),
-  createScene(3),
-  createScene(4),
-  createScene(5),
-];
+export const chapters: Scene[] = [];
+for (let i = 0; i < 23; i++) {
+  chapters.push(createScene(i));
+} // There's probably a way to run this so it's one function with a loop
+//rather than one loop with a function

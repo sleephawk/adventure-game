@@ -1,7 +1,12 @@
 import "./style.scss";
-import { chapter1 } from "./Chapters/chapter1";
-import { rollDiceAndDecidePath } from "./ts-modules/roll-dice";
-import { gameState } from "./ts-modules/game-state";
+import { chapters } from "./ts-modules/Chapters/chapters";
+import { endings } from "./ts-modules/Chapters/endings";
+import {
+  getIDForPreludeScene,
+  setUpNextScene,
+} from "./ts-modules/move-chapters-and-scenes";
+import rollDiceAndDecidePath from "./ts-modules/roll-dice";
+import gameState from "./ts-modules/game-state";
 
 // console.log(scenes.data[0].prevId);
 
@@ -16,9 +21,12 @@ const quoteZone =
   (document.getElementById("quote-zone") as HTMLDivElement) || null;
 
 const btnZone = (document.getElementById("btn-zone") as HTMLDivElement) || null;
-const btn1 = (document.getElementById("btn-1") as HTMLButtonElement) || null;
-const btn2 = (document.getElementById("btn-2") as HTMLButtonElement) || null;
-const btn3 = (document.getElementById("btn-3") as HTMLButtonElement) || null;
+export const btn1 =
+  (document.getElementById("btn-1") as HTMLButtonElement) || null;
+export const btn2 =
+  (document.getElementById("btn-2") as HTMLButtonElement) || null;
+export const btn3 =
+  (document.getElementById("btn-3") as HTMLButtonElement) || null;
 
 const begin = (document.getElementById("begin") as HTMLButtonElement) || null;
 const title = (document.getElementById("title") as HTMLHeadingElement) || null;
@@ -68,48 +76,44 @@ document.querySelectorAll(".game-zone__btn-zone--btn").forEach((btn) =>
     if (!(e.target instanceof HTMLButtonElement)) return;
 
     const button = e.target;
+    console.log(button);
     textZone.style.opacity = "0";
     btnZone.style.opacity = "0";
 
-    if (gameState.chapterNumber === 1) {
-      setTimeout(() => {
-        textZone.style.opacity = "1";
-        btnZone.style.opacity = "1";
-        const option = chapter1[gameState.sceneNumber].options.find(
-          (opt) => opt.text === button.innerText
-        );
+    setTimeout(() => {
+      const option = chapters[gameState.sceneNumber].options.find(
+        (opt) => opt.text === button.innerText
+      );
 
-        if (option) {
-          console.log(`Next scene to go to is ${option.nextSceneId}`);
-          if (
-            typeof option.nextSceneId === "string" &&
-            option.nextSceneId.includes("x")
-          ) {
-            setTimeout(function rollDice() {
-              const randomIndex = rollDiceAndDecidePath(option);
-              textZone.innerText = chapter1[randomIndex].text;
-              btn2.innerText = chapter1[randomIndex].options[0].text;
-              btn1.innerText = chapter1[randomIndex].options[1].text;
-              btn3.innerText = chapter1[randomIndex].options[2].text;
-              textZone.style.opacity = "1"; //may be able to refactor
-              btnZone.style.opacity = "1";
-              gameState.sceneNumber = randomIndex;
-            }, 5000); // may be able to refactor this
-            return;
-          } else {
-            textZone.innerText = chapter1[Number(option.nextSceneId)].text;
-            btn1.innerText =
-              chapter1[Number(option.nextSceneId)].options[0].text;
-            btn2.innerText =
-              chapter1[Number(option.nextSceneId)].options[1].text;
-            btn3.innerText =
-              chapter1[Number(option.nextSceneId)].options[2].text;
-            gameState.sceneNumber = Number(option.nextSceneId);
-          }
+      if (option) {
+        const nextScene = option.nextSceneId;
+        console.log(`Next scene to go to is ${nextScene}`);
+        if (nextScene.toString().includes("x")) {
+          setTimeout(function rollDice() {
+            console.log(rollDiceAndDecidePath(option));
+            const randomIndex = rollDiceAndDecidePath(option);
+            console.log(randomIndex);
+            setUpNextScene(randomIndex);
+            textZone.style.opacity = "1"; //may be able to refactor
+            btnZone.style.opacity = "1";
+          }, 3000); // may be able to refactor this
+          return;
+        } else if (nextScene.toString().includes("&")) {
+          const preludeSceneID = getIDForPreludeScene(option);
+          console.log(getIDForPreludeScene(option));
+          setUpNextScene(preludeSceneID);
+          textZone.style.transform = "translateX(90px)";
+          textZone.classList.add("fade-out");
+          setTimeout(() => {
+            textZone.style.transform = "unset";
+            title.style.opacity = "1";
+          }, 10000);
+        } else {
+          setUpNextScene(nextScene as number);
+          btnZone.style.opacity = "1";
         }
-        textZone.style.opacity = "1";
-        btnZone.style.opacity = "1";
-      }, 700);
-    }
+      }
+      textZone.style.opacity = "1";
+    }, 700);
   })
 ); //button handler chapter 1
