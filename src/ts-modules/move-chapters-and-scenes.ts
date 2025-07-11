@@ -11,7 +11,11 @@ export const getIDForPreludeScene: Function = (
     throw new Error(`Can't read option passed as parameter`);
   }
   if (o.nextSceneId.toString().includes("&")) {
-    const preludeScene = o.nextSceneId.toString().split("&").join("");
+    const preludeScene = o.nextSceneId.toString().split("&").unshift();
+    return Number(preludeScene);
+  } else if (o.nextSceneId.toString().includes(">>")) {
+    const preludeScene = o.nextSceneId.toString().split(">>").unshift();
+    gameState.chapterNumber++;
     return Number(preludeScene);
   }
 };

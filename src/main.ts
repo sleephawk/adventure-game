@@ -83,7 +83,7 @@ document.querySelectorAll(".game-zone__btn-zone--btn").forEach((btn) =>
     setTimeout(() => {
       const option = chapters[gameState.sceneNumber].options.find(
         (opt) => opt.text === button.innerText
-      );
+      ); // finds the option array that matches the text in the current button
 
       if (option) {
         const nextScene = option.nextSceneId;
@@ -96,9 +96,12 @@ document.querySelectorAll(".game-zone__btn-zone--btn").forEach((btn) =>
             setUpNextScene(randomIndex);
             textZone.style.opacity = "1"; //may be able to refactor
             btnZone.style.opacity = "1";
-          }, 3000); // may be able to refactor this
+          }, 1000); // may be able to refactor this
           return;
-        } else if (nextScene.toString().includes("&")) {
+        } else if (
+          nextScene.toString().includes("&") ||
+          nextScene.toString().includes(">>")
+        ) {
           const preludeSceneID = getIDForPreludeScene(option);
           console.log(getIDForPreludeScene(option));
           setUpNextScene(preludeSceneID);

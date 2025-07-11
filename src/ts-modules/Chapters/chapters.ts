@@ -23,7 +23,7 @@ const createScene = (scene: number) => {
 };
 
 export const chapters: Scene[] = [];
-for (let i = 0; i < 23; i++) {
+for (let i = 0; i < 32; i++) {
   chapters.push(createScene(i));
 } // There's probably a way to run this so it's one function with a loop
 //rather than one loop with a function

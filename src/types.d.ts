@@ -15,3 +15,8 @@ type Option = {
   text: string;
   nextSceneId: number | string;
 };
+
+type Ending = {
+  id: number;
+  text: string;
+}

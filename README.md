@@ -8,8 +8,18 @@
 - [x] research how to include music & create relevant element.
 - [ ] fixed floating mute button
 - [ ] relevant floating & animated gifs/ svgs (research correct format for animations)
+  - [ ] Consider both display area and background - more substantial animation in display, more minimal in background
 
 ## SCSS
+
+- [ ] Story content
+- [ ] Choose a quote for inspiration for the real story
+
+  - [ ] Externally create
+        = [ ] a route map
+  - [ ] 3 colour palettes
+  - [ ] upload as an asset to vs code to use as a reference
+  - [ ] leave test data and write out the journey
 
 - [x] Set up initial display-nones ready for DOM manipulation on start
 - [x] Choose and install a google font to keep the right vibe.
@@ -22,25 +32,28 @@
 - [x] combine 'chapter 1' with quote
 - [ ] rethink page layout since rotate animation too time consuming for too little payoff
 - [ ] create slider volume bar
-- [ ] create a for loop once the scenes are created
 
 ## Logic
 
 - [x] Query Selectors
 - [x] Event handlers
-- [ ] Console log dice roll logic to confirm checks are taking place
+- [x] Console log dice roll logic to confirm checks are taking place
       as intended
 
-  - [x] Button complete
+  - [ ] Button complete
 
     1 [x] to be put inside the event listener (when button is clicked)
     2 [x] should change the text of the text-zone and the button-zones
     3 [x] should fade between
+    4 [ ] Should now dissappear if textContent is '' via opacity (keeps buttons in place);
 
-- [ ] Upload more robust story file
+- [x] Upload more robust story file
+- [ ] Now that testing is complete, upload full story file of real story.
 - [ ] Create logic for win and lose con
 - [x] create logic for chance die
-- [ ] update dice logic to only have 2 options and to be 6 / 2 
+- [ ] update dice logic to only have 2 options and to be 6 / 2
+- [x] create a for loop once the scenes are created
+- [ ] refactor for loop so that we have one function creating the scenes rather than looping the functions
 
   - [ ] Music module
 
