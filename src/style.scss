@@ -122,18 +122,9 @@ audio {
     &--btn {
       font-size: 1rem;
       transition: opacity 1s linear;
+      position: relative;
     }
   }
-}
-
-#btn-1 {
-  position: relative;
-}
-#btn-2 {
-  position: relative;
-}
-#btn-3 {
-  position: relative;
 }
 
 //Fade Out

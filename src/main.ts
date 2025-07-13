@@ -42,28 +42,37 @@ if (!gameZone || !textZone || !quoteZone || !btnZone) {
 //   }, timer);
 // };
 
+const toggleVisibility = (...els: HTMLElement[]): void => {
+  els.forEach((el) => {
+    window.getComputedStyle(el).opacity === "0"
+      ? (el.style.opacity = "1")
+      : (el.style.opacity = "0");
+  });
+};
+
+const toggleDisplay = (...els: HTMLElement[]): void => {
+  els.forEach((el) => {
+    window.getComputedStyle(el).display === "none"
+      ? (el.style.display = "flex")
+      : (el.style.display = "none");
+  });
+};
+
 //begin button (game opening)
 begin.addEventListener("click", () => {
-  begin.style.opacity = "0";
-  title.style.opacity = "0";
-
+  toggleVisibility(begin, title);
   setTimeout(() => {
-    quoteZone.style.display = "flex";
-    begin.style.display = "none";
-    title.style.display = "none";
+    toggleDisplay(quoteZone, begin, title);
   }, 1000);
   setTimeout(() => {
-    quoteZone.style.opacity = "1"; // fade in quote
+    toggleVisibility(quoteZone);
   }, 1200);
   setTimeout(() => {
-    quoteZone.style.opacity = "0"; // fade out quote
+    toggleVisibility(quoteZone);
   }, 10000);
   setTimeout(() => {
-    quoteZone.style.display = "none";
-    textZone.style.display = "flex";
-    textZone.style.opacity = "1";
-    btnZone.style.display = "flex";
-    btnZone.style.opacity = "1";
+    toggleDisplay(quoteZone, textZone, btnZone);
+    toggleVisibility(textZone, btnZone);
     gameZone.style.flexDirection = "row";
     gameZone.style.gap = "50px";
   }, 11000);
