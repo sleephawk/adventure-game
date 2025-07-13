@@ -34,4 +34,3 @@ const populateScene = (scenesData: any): Scene[] => {
 };
 
 export const chapters = populateScene(scenes);
-console.log(chapters);

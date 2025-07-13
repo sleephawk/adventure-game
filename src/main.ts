@@ -24,8 +24,12 @@ const btnZone = (document.getElementById("btn-zone") as HTMLDivElement) || null;
 const begin = (document.getElementById("begin") as HTMLButtonElement) || null;
 const title = (document.getElementById("title") as HTMLHeadingElement) || null;
 
+export const gameButtons = document.querySelectorAll<HTMLElement>(
+  ".game-zone__btn-zone--btn"
+);
+
 //Null Check
-if (!gameZone || !textZone || !quoteZone || !btnZone) {
+if (!gameZone || !textZone || !quoteZone || !btnZone || !gameButtons) {
   throw new Error(`Missing HTML div elements - failed to import`);
 }
 
@@ -50,7 +54,7 @@ const toggleVisibility = (...els: HTMLElement[]): void => {
   });
 };
 
-const toggleDisplay = (...els: HTMLElement[]): void => {
+export const toggleDisplay = (...els: HTMLElement[]): void => {
   els.forEach((el) => {
     window.getComputedStyle(el).display === "none"
       ? (el.style.display = "flex")
@@ -78,35 +82,36 @@ begin.addEventListener("click", () => {
   }, 11000);
 });
 
-document.querySelectorAll(".game-zone__btn-zone--btn").forEach((btn) =>
+gameButtons.forEach((btn) => {
+  if (!btn.innerText) {
+    btn.style.display = "none";
+  }
   btn.addEventListener("click", (e) => {
-    //for TS make sure the event target is a button
     if (!(e.target instanceof HTMLButtonElement)) return;
-
     const button = e.target;
     console.log(button);
-    textZone.style.opacity = "0";
-    btnZone.style.opacity = "0";
-
+    toggleVisibility(textZone, btnZone);
+    console.log("this button has been clicked");
     setTimeout(() => {
       const option = chapters[gameState.sceneNumber].options.find(
         (opt) => opt.text === button.innerText
-      ); // finds the option array that matches the text in the current button
-      //within the chapters object (needs new name)
-      console.log(chapters[0].options);
+      );
+      /*----------------------------*/
       if (option) {
         const nextScene = option.nextId;
         console.log(`Next scene to go to is ${nextScene}`);
+        /*----------------------------*/
+        /*----------------------------*/
         if (nextScene.toString().includes(",")) {
           setTimeout(function rollDice() {
             console.log(rollDiceAndDecidePath(option));
             const randomIndex = rollDiceAndDecidePath(option);
             console.log(randomIndex);
             setUpNextScene(randomIndex);
-            textZone.style.opacity = "1"; //may be able to refactor
-            btnZone.style.opacity = "1";
+            toggleVisibility(textZone, btnZone);
           }, 1000); // may be able to refactor this
           return;
+          /*----------------------------*/
         } else if (nextScene.toString().includes("&")) {
           const preludeSceneID = getIDForPreludeScene(option);
           console.log(getIDForPreludeScene(option));
@@ -115,14 +120,16 @@ document.querySelectorAll(".game-zone__btn-zone--btn").forEach((btn) =>
           textZone.classList.add("fade-out");
           setTimeout(() => {
             textZone.style.transform = "unset";
-            title.style.opacity = "1";
+            toggleVisibility(title);
           }, 10000);
+          /*----------------------------*/
         } else {
           setUpNextScene(nextScene as number);
-          btnZone.style.opacity = "1";
+          btnZone.style.opacity = "1"; //absolutely ensures opacity is on
         }
       }
       textZone.style.opacity = "1";
     }, 700);
-  })
-); //button handler chapter 1
+  });
+});
+//button handler chapter 1
