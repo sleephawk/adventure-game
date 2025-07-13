@@ -1,4 +1,10 @@
-export type RawScene = {
+// papaparse.d.ts
+declare module "papaparse" {
+  const Papa: any;
+  export default Papa;
+}
+
+type RawScene = {
   sceneId: string;
   prevId: string;
   text: string;
@@ -12,19 +18,19 @@ export type RawScene = {
   altNum: string;
 };
 
-export type Scene = {
+type Scene = {
   sceneId: number;
   prevId: number | string;
   text: string;
   options: Option[];
 };
 
-export type Option = {
+type Option = {
   text: string;
   nextId: number | string;
 };
 
-export type Ending = {
+type Ending = {
   id: number;
   text: string;
 };

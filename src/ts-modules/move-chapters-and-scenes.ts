@@ -1,6 +1,7 @@
 import gameState from "./game-state";
-import * as DOMEl from "../main";
+import { textZone } from "../main";
 import { chapters } from "./Chapters/chapters";
+import type { Option } from "../module-types";
 //Takes the specific scenario in which the path is preluding a new chapter or ending and handles the pathway correctly.
 
 export const getIDForPreludeScene: Function = (
@@ -10,20 +11,24 @@ export const getIDForPreludeScene: Function = (
   if (!o) {
     throw new Error(`Can't read option passed as parameter`);
   }
-  if (o.nextSceneId.toString().includes("&")) {
-    const preludeScene = o.nextSceneId.toString().split("&").unshift();
-    return Number(preludeScene);
-  } else if (o.nextSceneId.toString().includes(">>")) {
-    const preludeScene = o.nextSceneId.toString().split(">>").unshift();
-    gameState.chapterNumber++;
+  if (o.nextId.toString().includes("&")) {
+    const preludeScene = o.nextId.toString().split("&").join("");
     return Number(preludeScene);
   }
 };
 
+const btn1 = document.querySelector<HTMLButtonElement>("#btn-1");
+const btn2 = document.querySelector<HTMLButtonElement>("#btn-2");
+const btn3 = document.querySelector<HTMLButtonElement>("#btn-3");
+
+if (!btn1 || !btn2 || !btn3) {
+  throw new Error("Buttons could not be found");
+}
+
 export const setUpNextScene = (i: number) => {
-  DOMEl.textZone.innerText = chapters[i].text;
-  DOMEl.btn1.innerText = chapters[Number(i)].options[0].text;
-  DOMEl.btn2.innerText = chapters[Number(i)].options[1].text;
-  DOMEl.btn3.innerText = chapters[Number(i)].options[2].text;
+  textZone.innerText = chapters[i].text;
+  btn1.innerText = chapters[Number(i)].options[0].text;
+  btn2.innerText = chapters[Number(i)].options[1].text;
+  btn3.innerText = chapters[Number(i)].options[2].text;
   gameState.sceneNumber = Number(i);
 };

@@ -1,5 +1,5 @@
 import Papa from "papaparse";
-import csvData from "../data/scene-test.csv?raw";
+import csvData from "../data/scene-data.csv?raw";
 
 const scenes = Papa.parse(csvData, {
   header: true, // first row is header
