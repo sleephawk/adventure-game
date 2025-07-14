@@ -42,8 +42,11 @@ h1 {
 
 nav {
   display: flex;
+  justify-content: flex-end;
   gap: 30px;
   height: 30px;
+  padding: 25px;
+  box-sizing: border-box;
 }
 
 button {
@@ -71,7 +74,7 @@ audio {
   display: none;
 }
 
-//-------------------------------------BEM & #
+//-------------------------------------BEM, . & #
 #begin {
   height: 100px;
   width: 100px;
@@ -144,6 +147,15 @@ audio {
         padding: 10px;
       }
     }
+  }
+}
+
+.nav-button {
+  width: 50px;
+  height: 50px;
+  @include devices.phone {
+    width: 40px;
+    height: 40px;
   }
 }
 

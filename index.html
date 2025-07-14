@@ -10,7 +10,7 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <header><nav><img src="" alt=""><img src="" alt=""></nav></header>
+    <header><nav><img class="nav-button" src="./src/Assets/Icons/volume-icon.png" id="sound-settings" role="button" alt="sound settings"><img src="src/Assets/Icons/home-icon.png" class="nav-button" id="home-button" role="button"  alt="home button"></nav></header>
     <main>
     <div id="game-zone" class="game-zone">
       <h1 id="title">The One Who Walks the Void</h1>
@@ -32,12 +32,8 @@
         <button id="btn-3" class="game-zone__btn-zone--btn"></button>
       </div>
     </div>
-    <audio controls loop>
+    <audio id="audio" controls loop>
       <source src="./src/Assets/progress is progress (in progress).mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-    </audio>
-    <audio controls>
-      <source src="" type="audio/mpeg">
     Your browser does not support the audio element.
     </audio>
     <script type="module" src="/src/main.ts"></script>

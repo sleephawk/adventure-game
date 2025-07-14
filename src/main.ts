@@ -12,26 +12,62 @@ import gameState from "./ts-modules/game-state";
 
 //Query Selectors:
 
-export const gameZone = document.getElementById("game-zone") as HTMLDivElement;
+export const gameZone = document.querySelector<HTMLDivElement>("#game-zone");
 export const textZone =
-  (document.getElementById("text-zone") as HTMLParagraphElement) || null;
+  document.querySelector<HTMLParagraphElement>("#text-zone");
+const quoteZone = document.querySelector<HTMLDivElement>("#quote-zone");
 
-const quoteZone =
-  (document.getElementById("quote-zone") as HTMLDivElement) || null;
+const btnZone = document.querySelector<HTMLDivElement>("#btn-zone");
 
-const btnZone = (document.getElementById("btn-zone") as HTMLDivElement) || null;
-
-const begin = (document.getElementById("begin") as HTMLButtonElement) || null;
-const title = (document.getElementById("title") as HTMLHeadingElement) || null;
+const begin = document.querySelector<HTMLButtonElement>("#begin");
+const title = document.querySelector<HTMLHeadElement>("#title");
+const audio = document.querySelector<HTMLAudioElement>("#audio");
 
 export const gameButtons = document.querySelectorAll<HTMLElement>(
   ".game-zone__btn-zone--btn"
 );
 
+const soundSettings =
+  document.querySelector<HTMLImageElement>("#sound-settings");
+const homeButton = document.querySelector<HTMLImageElement>("#home-button");
+
 //Null Check
-if (!gameZone || !textZone || !quoteZone || !btnZone || !gameButtons) {
+if (
+  !gameZone ||
+  !textZone ||
+  !quoteZone ||
+  !btnZone ||
+  !gameButtons ||
+  !soundSettings ||
+  !homeButton ||
+  !audio ||
+  !begin ||
+  !title
+) {
   throw new Error(`Missing HTML div elements - failed to import`);
 }
+const standardVolume = 0.2;
+
+document.addEventListener("DOMContentLoaded", () => {
+  audio.volume = standardVolume;
+});
+
+const toggleMuteSound = () => {
+  console.log(`volume is ${audio.volume}`);
+  audio.volume === 0 ? (audio.volume = standardVolume) : (audio.volume = 0);
+};
+
+const toggleMuteVolumeIcon = () => {
+  audio.volume === 0
+    ? (soundSettings.src = "src/Assets/Icons/mute-icon.png")
+    : (soundSettings.src = "src/Assets/Icons/volume-icon.png");
+};
+
+soundSettings.addEventListener("click", () => {
+  console.log("mute button has been clicked");
+  toggleMuteSound();
+  toggleMuteVolumeIcon();
+});
 
 //Event Handlers
 
@@ -62,8 +98,16 @@ export const toggleDisplay = (...els: HTMLElement[]): void => {
   });
 };
 
+const resetTrackers: Function = (): void => {
+  gameState.sceneNumber = 0;
+  gameState.areaTracker = 0;
+};
+
 //begin button (game opening)
 begin.addEventListener("click", () => {
+  audio.play().catch((err) => {
+    console.warn("playback failed", err);
+  });
   toggleVisibility(begin, title);
   setTimeout(() => {
     toggleDisplay(quoteZone, begin, title);
@@ -77,7 +121,7 @@ begin.addEventListener("click", () => {
   setTimeout(() => {
     toggleDisplay(quoteZone, textZone, btnZone);
     toggleVisibility(textZone, btnZone);
-    if (window.visualViewport && window.visualViewport.width > 1720) {
+    if (window.visualViewport && window.visualViewport.width > 1080) {
       gameZone.style.flexDirection = "row";
       gameZone.style.gap = "50px";
     }
@@ -135,4 +179,31 @@ gameButtons.forEach((btn) => {
     }, 700);
   });
 });
-//button handler chapter 1
+
+//   }
+//   console.log(
+//     `i have made it to execution and the gameState.sceneNumber is ${gameState.sceneNumber}`
+//   );
+//   const manualDialogue: HTMLDivElement = document.createElement("div");
+//   manualDialogue.classList.add("manual-dialogue");
+//   manualDialogue.innerHTML = `<p>Are you sure you want to go to the
+//   home page? You will lose your current place</p>`;
+//   const btn1 = document.createElement("button");
+//   btn1.addEventListener("click", () => {
+//     toggleVisibility(textZone, btnZone, title, begin);
+//     toggleDisplay(textZone, btnZone, title, begin);
+//     resetTrackers();
+//     document.body.removeChild(manualDialogue);
+//   });
+//   btn1.innerText = "Yes";
+//   const btn2 = document.createElement("button");
+//   btn2.addEventListener("click", () => {
+//     document.body.removeChild(manualDialogue);
+//   });
+//   btn2.innerText = "No";
+//   document.body.appendChild(manualDialogue);
+//   manualDialogue.appendChild(btn1);
+//   manualDialogue.appendChild(btn2);
+// };
+
+// homeButton.addEventListener("click", setUpManualDialogueBox);
