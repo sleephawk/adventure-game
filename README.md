@@ -9,17 +9,19 @@
 - [ ] fixed floating mute button
 - [ ] relevant floating & animated gifs/ svgs (research correct format for animations)
   - [ ] Consider both display area and background - more substantial animation in display, more minimal in background
+  - [ ] insert a display none img in the so called textZone.
+  - [ ] rename textZone to reflect the above.
 
 ## SCSS
 
-- [ ] Story content
+- [x] Story content
 - [ ] Choose a quote for inspiration for the real story
 
-  - [ ] Externally create
-    - [ ] a route map
+  - [x] Externally create
+    - [x] a route map
   - [x] 3 colour palettes
   - [ ] upload as an asset to vs code to use as a reference
-  - [ ] leave test data and write out the journey
+  - [x] leave test data and write out the journey
 
 - [x] Set up initial display-nones ready for DOM manipulation on start
 - [x] Choose and install a google font to keep the right vibe.
@@ -45,24 +47,23 @@
     1 [x] to be put inside the event listener (when button is clicked)
     2 [x] should change the text of the text-zone and the button-zones
     3 [x] should fade between
-    4 [ ] Should now dissappear if textContent is '' via opacity (keeps buttons in place);
+    4 [x] Should now dissappear if textContent is '' via opacity (keeps buttons in place);
     5- [ ] should not change if text is exactly the same
 
 - [x] Upload more robust story file
-- [ ] Now that testing is complete, upload full story file of real story.
+- [x] Now that testing is complete, upload full story file of real story.
 - [ ] Create logic for win and lose con
 - [x] create logic for chance die
 - [x] update dice logic to only have 2 options and to be 6 / 2
 - [x] create a for loop once the scenes are created
-- [ ] refactor for loop so that we have one function creating the scenes rather than looping the functions
-- [ ] erase chapter logic and commit to a one-chapter 100-scene system
-- [ ] create logs in game state object for the different 'real world objects' you can receive in game, i.e. the coin will need a boolean.
-- [ ] change text and perhaps even routes if certain conditions are met, i.e if you have the coin.
-      to demonstate it has been achieved and therefore link to a different storyline
+- [x] refactor for loop so that we have one function creating the scenes rather than looping the functions
+- [x] erase chapter logic and commit to a one-chapter system
 
   - [ ] create logic for changing text on ending (good and bad)
-  - [ ] update chapters name to be more appropriate for what it is
   - [ ] create skip button if you have already been sent back to the beginning
+  - [ ] create dice percentage rolls and map them to the chances (maybe a story chance object?)
+  - [ ] fix undefined dead end issue (8,9,10)
+  - [ ] Create a trigger scene object or enum, for which the specific special numbered scenes that trigger music or graphics are named.
 
   - [ ] Music module
 

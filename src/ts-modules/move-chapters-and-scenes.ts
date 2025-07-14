@@ -2,7 +2,6 @@ import gameState from "./game-state";
 import { gameButtons, textZone } from "../main";
 import { chapters } from "./Chapters/chapters";
 import type { Option } from "../types";
-import { toggleDisplay } from "../main";
 //Takes the specific scenario in which the path is preluding a new chapter or ending and handles the pathway correctly.
 
 export const getIDForPreludeScene: Function = (

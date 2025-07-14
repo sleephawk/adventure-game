@@ -10,15 +10,18 @@
     <title>Vite + TS</title>
   </head>
   <body>
+    <header><nav><img src="" alt=""><img src="" alt=""></nav></header>
+    <main>
     <div id="game-zone" class="game-zone">
-      <h1 id="title">The Fish in the Tree</h1>
+      <h1 id="title">The One Who Walks the Void</h1>
       <button id="begin">Begin</button>
       <div id='quote-zone' class="game-zone__quote-zone">
       <p class=" game-zone__quote-zone--text">
-        “Little solace comes to those who grieve when thoughts keep drifting as
-        walls keep shifting and this great blue world of ours seems a house of
-        leaves moments before the wind.” 
-        <p class="game-zone__quote-zone--author">Mark Z. Danielewski, House of Leaves</p>
+        “It is not the lives we regret not living that are the real problem. It is the regret itself. 
+        It's the regret that makes us shrivel and wither and feel like our own and other people's worst enemy. 
+        We can't tell if any of those other versions would have been better or worse. 
+        Those lives aren't real. They're shadows. That's not the present. The only way to learn is to live.”
+        <p class="game-zone__quote-zone--author">Matt Haig, <em>The Midnight Library</em></p>
       </p>
       </div>
 
@@ -29,10 +32,15 @@
         <button id="btn-3" class="game-zone__btn-zone--btn"></button>
       </div>
     </div>
-    <audio controls>
+    <audio controls loop>
       <source src="./src/Assets/progress is progress (in progress).mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    <audio controls>
+      <source src="" type="audio/mpeg">
     Your browser does not support the audio element.
     </audio>
     <script type="module" src="/src/main.ts"></script>
   </body>
+  </main>
 </html>

@@ -77,8 +77,10 @@ begin.addEventListener("click", () => {
   setTimeout(() => {
     toggleDisplay(quoteZone, textZone, btnZone);
     toggleVisibility(textZone, btnZone);
-    gameZone.style.flexDirection = "row";
-    gameZone.style.gap = "50px";
+    if (window.visualViewport && window.visualViewport.width > 1720) {
+      gameZone.style.flexDirection = "row";
+      gameZone.style.gap = "50px";
+    }
   }, 11000);
 });
 
@@ -89,13 +91,14 @@ gameButtons.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const button = e.target;
-    console.log(button);
     toggleVisibility(textZone, btnZone);
     console.log("this button has been clicked");
     setTimeout(() => {
       const option = chapters[gameState.sceneNumber].options.find(
         (opt) => opt.text === button.innerText
       );
+      console.log(`The current scene is ${gameState.sceneNumber}`);
+      console.log("option:", option);
       /*----------------------------*/
       if (option) {
         const nextScene = option.nextId;

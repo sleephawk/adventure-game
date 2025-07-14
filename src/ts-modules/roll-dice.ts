@@ -1,5 +1,6 @@
 //the roll dice takes an Option type and uses the text to
 //define the path forward in the game
+import type { Option } from "../types";
 
 const rollDiceAndDecidePath: Function = (o: Option): number | undefined => {
   console.log("This operation is running");
@@ -9,6 +10,7 @@ const rollDiceAndDecidePath: Function = (o: Option): number | undefined => {
   const [path1, path2] = o.nextId.toString().split(",");
   const rolledDice = Math.ceil(Math.random() * 6);
   if (rolledDice > Math.floor((rolledDice / 100) * 33)) {
+    //NEED TO FIX
     //is it higher than 66%?
     console.log(`Rolled a ${rolledDice} which is in the top 66%`);
     return parseInt(path1);

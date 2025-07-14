@@ -36,8 +36,15 @@ h1 {
   font-size: 5rem;
   position: relative;
   transition: opacity 1s linear;
+  max-width: 75%;
 }
 // Might need a more meaningful allocation of id and class
+
+nav {
+  display: flex;
+  gap: 30px;
+  height: 30px;
+}
 
 button {
   font-family: $font;
@@ -118,11 +125,24 @@ audio {
     position: relative;
     box-sizing: border-box;
     transition: opacity 1s linear;
+    @include devices.phone {
+      flex-direction: row;
+      gap: 50px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
 
     &--btn {
       font-size: 1rem;
       transition: opacity 1s linear;
       position: relative;
+      @include devices.phone {
+        box-shadow: 0px 0px 30px $paynes-grey;
+        border-radius: 0;
+        font-size: 0.8rem;
+        padding: 10px;
+      }
     }
   }
 }
