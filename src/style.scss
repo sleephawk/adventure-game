@@ -1,18 +1,18 @@
 @use "../src/scss-modules/devices.scss";
 @use "../src/scss-modules/mixin.scss";
+@use "../src/scss-modules/palette.scss";
 
 //----------------------------Variables
-//borders
-$red: solid 3px red;
+$red: solid 3px red; //borders
 $blue: solid 3px blue;
 $green: solid 3px green;
-//core colours
-$black: #010101ff;
+
+$black: #010101ff; //core colours
 $dark-grey: #2a363eff;
 $paynes-grey: #586b79ff;
 $light-grey: #a7b4bdff;
 $white: #d7e4ecff;
-//font
+
 $font: "Libertinus Math", system-UI;
 
 /*-------------*/
@@ -29,9 +29,7 @@ $font: "Libertinus Math", system-UI;
   padding: 0;
   margin: 0; //reset defaults
 }
-
 //---------------------------------Elements
-
 h1 {
   font-size: 5rem;
   position: relative;
@@ -39,7 +37,6 @@ h1 {
   max-width: 75%;
 }
 // Might need a more meaningful allocation of id and class
-
 nav {
   display: flex;
   justify-content: flex-end;
@@ -73,7 +70,6 @@ button:active {
 audio {
   display: none;
 }
-
 //-------------------------------------BEM, . & #
 #begin {
   height: 100px;

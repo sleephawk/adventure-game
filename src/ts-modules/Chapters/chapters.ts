@@ -1,9 +1,11 @@
 import scenes from "../../data/parse-csv";
 import type { RawScene, Scene } from "../../types";
+import gameState from "../game-state";
 
 const createScene = (scene: RawScene) => {
   return {
     sceneId: scene.sceneId,
+    areaId: scene.areaId,
     prevId: scene.prevId,
     text: scene.text,
     options: [
@@ -20,17 +22,22 @@ const createScene = (scene: RawScene) => {
         nextId: scene.option3NextId,
       },
     ],
-    token: scene.token, //need to refactor to paramtererise these creation functions
-    altNum: scene.altNum, //need to refactor to paramtererise these creation functions
   };
 };
 
 const populateScene = (scenesData: any): Scene[] => {
-  //takes the scene data as a parameter
   return scenesData.data.map((sceneData: any) => {
-    //returns the scene data array and maps each iteration
-    return createScene(sceneData); // this is the callback so the callback takes each object in the array and passes through create
+    return createScene(sceneData);
   });
 };
 
 export const chapters = populateScene(scenes);
+
+const createAreaArray = (n: number) => {
+  return Object.values(chapters)
+    .filter((ch) => ch.areaId === n)
+    .map((ch) => ch.sceneId);
+};
+
+export const [area1SceneIds, area2SceneIds, area3SceneIds, area4SceneIds] =
+  Array.from({ length: 4 }, (_, i) => createAreaArray(i + 1));

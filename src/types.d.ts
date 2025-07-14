@@ -1,5 +1,6 @@
 export type RawScene = {
   sceneId: string;
+  areaId: string;
   prevId: string;
   text: string;
   option1Txt: string;
@@ -8,12 +9,11 @@ export type RawScene = {
   option2NextId: string;
   option3Txt: string;
   option3NextId: string;
-  token: string;
-  altNum: string;
 };
 
 export type Scene = {
   sceneId: number;
+  areaId: number;
   prevId: number | string;
   text: string;
   options: Option[];

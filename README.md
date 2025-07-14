@@ -15,7 +15,7 @@
 ## SCSS
 
 - [x] Story content
-- [ ] Choose a quote for inspiration for the real story
+- [x] Choose a quote for inspiration for the real story
 
   - [x] Externally create
     - [x] a route map
@@ -26,7 +26,7 @@
 - [x] Set up initial display-nones ready for DOM manipulation on start
 - [x] Choose and install a google font to keep the right vibe.
 - [x] choose background colour & setup palette (likely B&W for most but want colours to change in certain chapters);
-- [ ] music mute and sound graphic needed for the main page
+- [x] music mute and sound graphic needed for the main page
 - [x] Set up palette
 - [x] Set up device mixins
 - [x] Position options round the circle in equal measure
@@ -42,13 +42,12 @@
 - [x] Console log dice roll logic to confirm checks are taking place
       as intended
 
-  - [ ] Button complete
+  - [x] Button complete
 
     1 [x] to be put inside the event listener (when button is clicked)
     2 [x] should change the text of the text-zone and the button-zones
     3 [x] should fade between
     4 [x] Should now dissappear if textContent is '' via opacity (keeps buttons in place);
-    5- [ ] should not change if text is exactly the same
 
 - [x] Upload more robust story file
 - [x] Now that testing is complete, upload full story file of real story.
@@ -61,8 +60,10 @@
 
   - [ ] create logic for changing text on ending (good and bad)
   - [ ] create skip button if you have already been sent back to the beginning
-  - [ ] create dice percentage rolls and map them to the chances (maybe a story chance object?)
-  - [ ] fix undefined dead end issue (8,9,10)
+
+- [ ] create dice percentage rolls and map them to the chances (maybe a story chance object?) !MOST IMPORTANT
+
+  - [ ] fix undefined dead end issue (8,9,10) !MOST IMPORTANT
   - [ ] Create a trigger scene object or enum, for which the specific special numbered scenes that trigger music or graphics are named.
 
   - [ ] Music module
@@ -72,10 +73,16 @@
     3 [ ] create volume bar graphic
     4 [ ] Create a module that starts and plays music depending on the current chapter and scene.
 
-## API & Processing CSVs
+## APIs & Processing
+
+### CSV Parsing Through Papaparse
 
 - From Vite, we have a CSV converter so that we can use a local spreadsheet in src/ data that will provide all the options for the responses object. This avoids hundreds of lines of code.
   The vite.config.ts is what allows me to use this in the project.
 - Further setup was needed by adding a types.d.ts file, which declares csv files as an any type and therefore can be imported without confusion from TS.
 - I then updated the tsconfig file to 'include' the types file, and this led to it work.
 - A large portion of time was spent trying to figure out vite csv converter without being able to find the documentation. I eventually restarted with Papaparse as it is more supported.
+
+### Web Player API
+
+- I had to learn how to create an AudioContext object and setup through the web player api

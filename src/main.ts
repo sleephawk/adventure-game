@@ -21,7 +21,6 @@ const btnZone = document.querySelector<HTMLDivElement>("#btn-zone");
 
 const begin = document.querySelector<HTMLButtonElement>("#begin");
 const title = document.querySelector<HTMLHeadElement>("#title");
-const audio = document.querySelector<HTMLAudioElement>("#audio");
 
 export const gameButtons = document.querySelectorAll<HTMLElement>(
   ".game-zone__btn-zone--btn"
@@ -40,14 +39,21 @@ if (
   !gameButtons ||
   !soundSettings ||
   !homeButton ||
-  !audio ||
   !begin ||
   !title
 ) {
   throw new Error(`Missing HTML div elements - failed to import`);
 }
-const standardVolume = 0.2;
 
+//------------------------------------------------------Audio controls
+const audioContext = new AudioContext();
+const audio = new Audio("src/Assets/progress is progress (in progress).mp3"); //fix audio name and location
+console.log(audioContext);
+const source = audioContext.createMediaElementSource(audio);
+
+source.connect(audioContext.destination);
+
+const standardVolume = 0.2;
 document.addEventListener("DOMContentLoaded", () => {
   audio.volume = standardVolume;
 });
@@ -82,6 +88,7 @@ soundSettings.addEventListener("click", () => {
 //   }, timer);
 // };
 
+//----------------------------------------------------------Game state functions
 const toggleVisibility = (...els: HTMLElement[]): void => {
   els.forEach((el) => {
     window.getComputedStyle(el).opacity === "0"
@@ -103,8 +110,9 @@ const resetTrackers: Function = (): void => {
   gameState.areaTracker = 0;
 };
 
-//begin button (game opening)
+//----------------------------------------Opening button
 begin.addEventListener("click", () => {
+  if (audioContext.state === "suspended") audioContext.resume();
   audio.play().catch((err) => {
     console.warn("playback failed", err);
   });
@@ -179,31 +187,3 @@ gameButtons.forEach((btn) => {
     }, 700);
   });
 });
-
-//   }
-//   console.log(
-//     `i have made it to execution and the gameState.sceneNumber is ${gameState.sceneNumber}`
-//   );
-//   const manualDialogue: HTMLDivElement = document.createElement("div");
-//   manualDialogue.classList.add("manual-dialogue");
-//   manualDialogue.innerHTML = `<p>Are you sure you want to go to the
-//   home page? You will lose your current place</p>`;
-//   const btn1 = document.createElement("button");
-//   btn1.addEventListener("click", () => {
-//     toggleVisibility(textZone, btnZone, title, begin);
-//     toggleDisplay(textZone, btnZone, title, begin);
-//     resetTrackers();
-//     document.body.removeChild(manualDialogue);
-//   });
-//   btn1.innerText = "Yes";
-//   const btn2 = document.createElement("button");
-//   btn2.addEventListener("click", () => {
-//     document.body.removeChild(manualDialogue);
-//   });
-//   btn2.innerText = "No";
-//   document.body.appendChild(manualDialogue);
-//   manualDialogue.appendChild(btn1);
-//   manualDialogue.appendChild(btn2);
-// };
-
-// homeButton.addEventListener("click", setUpManualDialogueBox);
