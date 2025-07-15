@@ -43,7 +43,8 @@ nav {
   gap: 30px;
   height: 30px;
   padding: 25px;
-  box-sizing: border-box;
+
+  z-index: 1000;
 }
 
 button {
@@ -72,6 +73,9 @@ audio {
 }
 //-------------------------------------BEM, . & #
 #begin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100px;
   width: 100px;
   border-radius: 50%;
@@ -89,7 +93,6 @@ audio {
   transition: opacity 1s linear;
   @include devices.phone {
     flex-direction: column;
-    gap: 0;
   }
 
   &__quote-zone {
@@ -176,5 +179,16 @@ audio {
   }
 }
 .fade-out {
-  animation: fade-out 3s ease-in forwards;
+  animation: fade-out 13s ease-in forwards;
+}
+
+.message {
+  font-size: 2rem;
+  position: absolute;
+  z-index: 1000;
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }

@@ -12,6 +12,7 @@ import {
   urlArray,
 } from "./ts-modules/Story/story";
 import type { Option } from "./types";
+import { audioSources } from "./ts-modules/music-triggers";
 
 //Query Selectors:
 
@@ -56,26 +57,36 @@ const sleeper = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 //------------------------------------------------------Audio controls
-const audioContext = new AudioContext();
-const audio = new Audio("src/Assets/Audio/Effects/waves.wav");
-const source = audioContext.createMediaElementSource(audio);
+// const audioContext = new AudioContext();
 
-source.connect(audioContext.destination);
+// const sources = [music, btn1, btn2, btn3].map((src) => {
+//   const source = audioContext.createMediaElementSource(src);
+//   source.connect(audioContext.destination);
+//   return source;
+// });
+
+//connects the source to the speakers
 
 const standardVolume = 0.2;
 document.addEventListener("DOMContentLoaded", () => {
-  audio.volume = standardVolume;
+  audioSources.forEach((a) => {
+    a.volume = standardVolume;
+  });
 });
 
 const toggleMuteSound = () => {
-  console.log(`volume is ${audio.volume}`);
-  audio.volume === 0 ? (audio.volume = standardVolume) : (audio.volume = 0);
+  console.log(`volume is ${a.volume}`);
+  audioSources.forEach((a) => {
+    a.volume === 0 ? (a.volume = standardVolume) : (a.volume = 0);
+  });
 };
 
 const toggleMuteVolumeIcon = () => {
-  audio.volume === 0
-    ? (soundSettings.src = "src/Assets/Icons/mute-icon.png")
-    : (soundSettings.src = "src/Assets/Icons/volume-icon.png");
+  audioSources.forEach((a) => {
+    a.volume === 0
+      ? (soundSettings.src = "src/Assets/Icons/mute-icon.png")
+      : (soundSettings.src = "src/Assets/Icons/volume-icon.png");
+  });
 };
 
 soundSettings.addEventListener("click", () => {
@@ -90,12 +101,14 @@ const changeOpacityValue = (n: number, ...els: HTMLElement[]): void => {
   });
 };
 
-const changeSceneColours = (): void => {
+const changeSceneColours = (colour?: string): void => {
   const sky = " #fcfbc9";
   const sea = " #00edfe";
   const forest = " #85de9fff";
   const red = "red";
-  const newColour = [sky, sea, forest, red][gameState.areaTracker - 1];
+  const newColour = colour
+    ? colour
+    : [sky, sea, forest, red][gameState.areaTracker - 1];
   displayZone.style.boxShadow = "0px 0px 30px " + newColour;
   gameButtons.forEach((b) => {
     b.style.boxShadow = "0px 0px 30px " + newColour;
@@ -139,6 +152,19 @@ const displayAnimation = async (url: string, position: string) => {
 const resetTrackers: Function = (): void => {
   gameState.sceneNumber = 0;
   gameState.areaTracker = 0;
+  gameButtons.forEach((btn) => {
+    btn.dataset.optionID = "1";
+  });
+};
+
+const resetDOMAfterEnding = () => {
+  changeDisplayValue("flex", title, begin);
+  changeDisplayValue("none", displayZone, btnZone);
+  changeOpacityValue(1, title, begin);
+  console.log("the game ended here");
+  displayZone.classList.remove("fade-out");
+  setUpNextScene(0);
+  changeSceneColours("#586b79ff");
 };
 
 const setUpNextScene = async (n: number) => {
@@ -165,6 +191,39 @@ const setUpNextScene = async (n: number) => {
   changeArea();
   console.log(`We're in scene ${newScene}`);
   console.log(`We're in area ${gameState.areaTracker}`);
+};
+
+const playEnding = async (): Promise<void> => {
+  displayZone.classList.add("fade-out");
+  const endingId = story[gameState.sceneNumber].options[0].nextId;
+  console.log(endingId);
+  if (endingId === "<l>") {
+    const lossMessage = document.createElement("p");
+    lossMessage.classList.add("message");
+    gameState.attemptTracker++;
+    lossMessage.textContent = `Do not fret. Where one path ends, another always begins. You will find your way.`;
+    await sleeper(13000);
+    gameZone.appendChild(lossMessage);
+    await sleeper(3000);
+    gameZone.removeChild(lossMessage);
+  } else if (endingId.includes("<w")) {
+    const winMessage = document.createElement("p");
+    if (endingId === "<w1>") gameState.w1++;
+    else if (endingId === "<w2>") gameState.w2++;
+    else if (endingId === "<w3>") gameState.w3++;
+    else if (endingId === "<w4>") gameState.w4++;
+    else console.log("ending ID doesnt match");
+    winMessage.classList.add("message");
+    gameState.winTracker++;
+    winMessage.textContent = `You found your way and passed on!
+     You have won ${gameState.winTracker} times and have completed  
+     ${gameState.w1 + gameState.w2 + gameState.w3 + gameState.w4}/4 
+     possible winning endings.`;
+    await sleeper(13000);
+    gameZone.appendChild(winMessage);
+    await sleeper(3000);
+    gameZone.removeChild(winMessage);
+  }
 };
 
 const getIDForPreludeScene: Function = async (o: Option): Promise<number> => {
@@ -208,7 +267,9 @@ const processSceneUI = async (button: HTMLButtonElement) => {
     } else if (nextScene.toString().includes("&")) {
       const preludeSceneID: number = await getIDForPreludeScene(option);
       await setUpNextScene(preludeSceneID);
-      displayZone.classList.add("fade-out");
+      await playEnding();
+      resetTrackers();
+      resetDOMAfterEnding();
       /*----------------------------*/
     } else {
       await setUpNextScene(Number(nextScene));
@@ -221,12 +282,13 @@ const processSceneUI = async (button: HTMLButtonElement) => {
 
 //----------------------------------------Opening button
 begin.addEventListener("click", () => {
-  if (audioContext.state === "suspended") audioContext.resume();
-  audio.play().catch((err) => {
-    console.warn("playback failed", err);
-  });
+  // if (audioContext.state === "suspended") audioContext.resume();
   changeOpacityValue(0, begin, title);
   changeDisplayValue("none", quoteZone, begin, title); //to delete
+  if (gameState.attemptTracker) {
+    changeDisplayValue("none", quoteZone, begin, title);
+    return;
+  }
   // setTimeout(() => {
   //   toggleDisplay(quoteZone, begin, title);
   // }, 1000);
