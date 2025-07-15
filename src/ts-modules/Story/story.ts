@@ -46,9 +46,17 @@ export const [area1SceneIds, area2SceneIds, area3SceneIds, area4SceneIds] =
   Array.from({ length: 4 }, (_, i) => createAreaArray(i + 1));
 
 const createSpecialSceneArray = () => {
-  return Object.values(story)
-    .filter((st) => st.animation == "y")
+  const specialArray = Object.values(story)
+    .filter((st) => st.animation)
     .map((st) => st.sceneId);
+  return specialArray;
+}; //creates arrays populated with scene ids for animation scenes
+const createUrlSceneArray = () => {
+  const specialArray = Object.values(story)
+    .filter((st) => st.animation)
+    .map((st) => st.animation);
+  return specialArray;
 }; //creates arrays populated with scene ids for animation scenes
 
 export const specialScenesArr = createSpecialSceneArray();
+export const urlArray = createUrlSceneArray();

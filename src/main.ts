@@ -9,6 +9,7 @@ import {
   area4SceneIds,
   specialScenesArr,
   story,
+  urlArray,
 } from "./ts-modules/Story/story";
 import type { Option } from "./types";
 
@@ -129,7 +130,7 @@ const displayAnimation = async (url: string, position: string) => {
   displayZone.innerText = "";
   displayZone.style.backgroundImage = `url(${url})`;
   displayZone.style.backgroundSize = "cover";
-  displayZone.style.backgroundRepeat = "none";
+  displayZone.style.backgroundRepeat = "no-repeat";
   displayZone.style.backgroundPosition = position;
   await sleeper(2000);
   displayZone.style.backgroundImage = "none";
@@ -141,7 +142,13 @@ const resetTrackers: Function = (): void => {
 };
 
 const setUpNextScene = async (n: number) => {
-  await displayAnimation("src/Assets/gifs/mermaid.gif", "center");
+  gameState.sceneNumber = Number(n);
+  const newScene = gameState.sceneNumber;
+  if (specialScenesArr.includes(newScene)) {
+    displayZone.innerText = "";
+    const urlIdx = specialScenesArr.indexOf(newScene);
+    await displayAnimation(urlArray[urlIdx], "center");
+  }
   displayZone.innerText = story[n].text;
   gameButtons.forEach((btn, i) => {
     const currentScene = story[Number(n)].options[i];
@@ -154,8 +161,6 @@ const setUpNextScene = async (n: number) => {
       btn.style.display = "none";
     }
   });
-  gameState.sceneNumber = Number(n);
-  const newScene = gameState.sceneNumber;
 
   changeArea();
   console.log(`We're in scene ${newScene}`);
