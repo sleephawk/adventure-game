@@ -1,14 +1,15 @@
 import "./style.scss";
-import { chapters } from "./ts-modules/Chapters/chapters";
 // import { endings } from "./ts-modules/Chapters/endings";
-import {
-  getIDForPreludeScene,
-  setUpNextScene,
-} from "./ts-modules/move-chapters-and-scenes";
 import rollDiceAndDecidePath from "./ts-modules/roll-dice";
 import gameState from "./ts-modules/game-state";
-
-// console.log(scenes.data[0].prevId);
+import {
+  area1SceneIds,
+  area2SceneIds,
+  area3SceneIds,
+  area4SceneIds,
+  story,
+} from "./ts-modules/Story/story";
+import type { Option } from "./types";
 
 //Query Selectors:
 
@@ -19,6 +20,7 @@ const quoteZone = document.querySelector<HTMLDivElement>("#quote-zone");
 
 const btnZone = document.querySelector<HTMLDivElement>("#btn-zone");
 
+const nav = document.querySelector("nav");
 const begin = document.querySelector<HTMLButtonElement>("#begin");
 const title = document.querySelector<HTMLHeadElement>("#title");
 
@@ -40,15 +42,15 @@ if (
   !soundSettings ||
   !homeButton ||
   !begin ||
-  !title
+  !title ||
+  !nav
 ) {
   throw new Error(`Missing HTML div elements - failed to import`);
 }
 
 //------------------------------------------------------Audio controls
 const audioContext = new AudioContext();
-const audio = new Audio("src/Assets/progress is progress (in progress).mp3"); //fix audio name and location
-console.log(audioContext);
+const audio = new Audio("src/Assets/Audio/Effects/waves.wav");
 const source = audioContext.createMediaElementSource(audio);
 
 source.connect(audioContext.destination);
@@ -89,19 +91,45 @@ soundSettings.addEventListener("click", () => {
 // };
 
 //----------------------------------------------------------Game state functions
-const toggleVisibility = (...els: HTMLElement[]): void => {
+const changeOpacityValue = (n: number, ...els: HTMLElement[]): void => {
   els.forEach((el) => {
-    window.getComputedStyle(el).opacity === "0"
-      ? (el.style.opacity = "1")
-      : (el.style.opacity = "0");
+    el.style.opacity = `${n}`;
   });
 };
 
-export const toggleDisplay = (...els: HTMLElement[]): void => {
+const changeSceneColours = (): void => {
+  const sky = " #fcfbc9";
+  const sea = " #00edfe";
+  const forest = " #85de9fff";
+  const red = "red";
+  const newColour = [sky, sea, forest, red][gameState.areaTracker - 1];
+  textZone.style.boxShadow = "0px 0px 30px " + newColour;
+  gameButtons.forEach((b) => {
+    b.style.boxShadow = "0px 0px 30px " + newColour;
+  });
+};
+
+const changeArea = async () => {
+  console.log(gameState.sceneNumber);
+  if (area1SceneIds.includes(gameState.sceneNumber)) {
+    gameState.areaTracker = 1;
+  } else if (area2SceneIds.includes(gameState.sceneNumber)) {
+    gameState.areaTracker = 2;
+    console.log("Im in area2");
+  } else if (area3SceneIds.includes(gameState.sceneNumber)) {
+    gameState.areaTracker = 3;
+    console.log("Im in area3");
+  } else if (area4SceneIds.includes(gameState.sceneNumber)) {
+    gameState.areaTracker = 4;
+  }
+};
+
+export const changeDisplayValue = (
+  value: string,
+  ...els: HTMLElement[]
+): void => {
   els.forEach((el) => {
-    window.getComputedStyle(el).display === "none"
-      ? (el.style.display = "flex")
-      : (el.style.display = "none");
+    el.style.display = value;
   });
 };
 
@@ -110,30 +138,104 @@ const resetTrackers: Function = (): void => {
   gameState.areaTracker = 0;
 };
 
+const setUpNextScene = async (n: number) => {
+  textZone.innerText = story[n].text;
+  gameButtons.forEach((btn, i) => {
+    btn.innerText = story[Number(n)].options[i].text;
+    btn.dataset.optionId = `${story[Number(n)].options[i].id}`;
+    console.log(story[n].options[i].id);
+    console.log(`The button at index ${i} id is ${btn.dataset.optionId}`);
+    btn.style.display = "block";
+    if (!btn.innerText) {
+      btn.style.display = "none";
+    }
+  });
+  gameState.sceneNumber = Number(n);
+  changeArea();
+  console.log(`We're in scene ${gameState.sceneNumber}`);
+  console.log(`We're in area ${gameState.areaTracker}`);
+};
+
+const getIDForPreludeScene: Function = async (o: Option): Promise<number> => {
+  if (o.nextId === undefined) {
+    throw new Error("option cannot read NextId for some reason.");
+  }
+  const preludeScene = o.nextId.split("&").join("");
+  return Number(preludeScene);
+};
+
+const processSceneUI = async (button: HTMLButtonElement) => {
+  console.log(
+    `This is where I'm looking for the option id that matched the button id,`,
+    story[gameState.sceneNumber].options
+  );
+  console.log(
+    `This is the first option value`,
+    story[gameState.sceneNumber].options[0].id
+  );
+  const id = button.dataset.optionId;
+  console.log(id);
+  console.log(button.dataset.optionId);
+  let option = story[gameState.sceneNumber].options.find((opt) => opt.id == id);
+  if (!option) {
+    throw new Error("Couldnt find option");
+  } else if (option.nextId === null) {
+    option.nextId = "1";
+    gameState.sceneNumber = 1;
+  }
+  console.log(`The current scene is ${gameState.sceneNumber}`);
+
+  /*----------------------------*/
+  if (option) {
+    const nextScene = option.nextId;
+    console.log(`Next scene to go to is ${nextScene}`);
+    /*----------------------------*/
+    /*----------------------------*/
+    if (nextScene.toString().includes(",")) {
+      const result = await rollDiceAndDecidePath(option);
+      console.log(`The new index generated from random is ${result}`);
+      await setUpNextScene(result);
+      console.log(`Now that the scene random has been set`);
+      changeOpacityValue(1, textZone, btnZone);
+      return;
+      /*----------------------------*/
+    } else if (nextScene.toString().includes("&")) {
+      const preludeSceneID: number = await getIDForPreludeScene(option);
+      await setUpNextScene(preludeSceneID);
+      textZone.classList.add("fade-out");
+      console.log("I asked the computer to fade out. Is it working?");
+      /*----------------------------*/
+    } else {
+      await setUpNextScene(Number(nextScene));
+      await changeSceneColours();
+      changeOpacityValue(1, btnZone); //absolutely ensures opacity is on
+    }
+  }
+  changeOpacityValue(1, textZone);
+};
+
 //----------------------------------------Opening button
 begin.addEventListener("click", () => {
   if (audioContext.state === "suspended") audioContext.resume();
   audio.play().catch((err) => {
     console.warn("playback failed", err);
   });
-  toggleVisibility(begin, title);
+  changeOpacityValue(0, begin, title);
+  changeDisplayValue("none", quoteZone, begin, title); //to delete
+  // setTimeout(() => {
+  //   toggleDisplay(quoteZone, begin, title);
+  // }, 1000);
+  // setTimeout(() => {
+  //   toggleVisibility(quoteZone);
+  // }, 1200);
+  // setTimeout(() => {
+  //   toggleVisibility(quoteZone);
+  // }, 10000);
   setTimeout(() => {
-    toggleDisplay(quoteZone, begin, title);
-  }, 1000);
-  setTimeout(() => {
-    toggleVisibility(quoteZone);
-  }, 1200);
-  setTimeout(() => {
-    toggleVisibility(quoteZone);
-  }, 10000);
-  setTimeout(() => {
-    toggleDisplay(quoteZone, textZone, btnZone);
-    toggleVisibility(textZone, btnZone);
-    if (window.visualViewport && window.visualViewport.width > 1080) {
-      gameZone.style.flexDirection = "row";
-      gameZone.style.gap = "50px";
-    }
-  }, 11000);
+    changeDisplayValue("none", quoteZone);
+    changeDisplayValue("flex", textZone, btnZone);
+    changeOpacityValue(1, textZone, btnZone);
+  }, 10 /*11000*/);
 });
 
 gameButtons.forEach((btn) => {
@@ -143,47 +245,9 @@ gameButtons.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const button = e.target;
-    toggleVisibility(textZone, btnZone);
-    console.log("this button has been clicked");
-    setTimeout(() => {
-      const option = chapters[gameState.sceneNumber].options.find(
-        (opt) => opt.text === button.innerText
-      );
-      console.log(`The current scene is ${gameState.sceneNumber}`);
-      console.log("option:", option);
-      /*----------------------------*/
-      if (option) {
-        const nextScene = option.nextId;
-        console.log(`Next scene to go to is ${nextScene}`);
-        /*----------------------------*/
-        /*----------------------------*/
-        if (nextScene.toString().includes(",")) {
-          setTimeout(function rollDice() {
-            console.log(rollDiceAndDecidePath(option));
-            const randomIndex = rollDiceAndDecidePath(option);
-            console.log(randomIndex);
-            setUpNextScene(randomIndex);
-            toggleVisibility(textZone, btnZone);
-          }, 1000); // may be able to refactor this
-          return;
-          /*----------------------------*/
-        } else if (nextScene.toString().includes("&")) {
-          const preludeSceneID = getIDForPreludeScene(option);
-          console.log(getIDForPreludeScene(option));
-          setUpNextScene(preludeSceneID);
-          textZone.style.transform = "translateX(90px)";
-          textZone.classList.add("fade-out");
-          setTimeout(() => {
-            textZone.style.transform = "unset";
-            toggleVisibility(title);
-          }, 10000);
-          /*----------------------------*/
-        } else {
-          setUpNextScene(nextScene as number);
-          btnZone.style.opacity = "1"; //absolutely ensures opacity is on
-        }
-      }
-      textZone.style.opacity = "1";
-    }, 700);
+    changeOpacityValue(0, textZone, btnZone);
+    console.log(`Button with id ${btn.dataset.optionId}`);
+    console.log(button);
+    processSceneUI(button);
   });
 });

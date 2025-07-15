@@ -83,10 +83,14 @@ audio {
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: column;
+  gap: 30px;
   justify-content: center;
   align-items: center;
   transition: opacity 1s linear;
+  @include devices.phone {
+    flex-direction: column;
+    gap: 0;
+  }
 
   &__quote-zone {
     display: none;
@@ -109,7 +113,7 @@ audio {
 
   &__text-zone {
     @include mixin.hidden;
-    flex-direction: column; //for when display = flex (DOM);
+    flex-direction: column;
     width: 200px;
     padding: 80px;
     z-index: 1;
@@ -166,5 +170,5 @@ audio {
   }
 }
 .fade-out {
-  animation: fade-out 10s ease-in forwards;
+  animation: fade-out 3s ease-in forwards;
 }

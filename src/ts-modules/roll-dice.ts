@@ -9,7 +9,7 @@ const rollDiceAndDecidePath: Function = (o: Option): number | undefined => {
   }
   const [path1, path2] = o.nextId.toString().split(",");
   const rolledDice = Math.ceil(Math.random() * 6);
-  if (rolledDice > Math.floor((rolledDice / 100) * 33)) {
+  if (rolledDice > 2) {
     //NEED TO FIX
     //is it higher than 66%?
     console.log(`Rolled a ${rolledDice} which is in the top 66%`);

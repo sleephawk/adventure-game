@@ -6,11 +6,12 @@
 - [x] Create game heading and start button (decide on title)
 - [x] Create quote for opening
 - [x] research how to include music & create relevant element.
-- [ ] fixed floating mute button
+- [x] fixed floating mute button
 - [ ] relevant floating & animated gifs/ svgs (research correct format for animations)
   - [ ] Consider both display area and background - more substantial animation in display, more minimal in background
   - [ ] insert a display none img in the so called textZone.
   - [ ] rename textZone to reflect the above.
+  - [ ] update the numbers in data to more accurately reflect scene areas
 
 ## SCSS
 
@@ -22,6 +23,7 @@
   - [x] 3 colour palettes
   - [ ] upload as an asset to vs code to use as a reference
   - [x] leave test data and write out the journey
+  - [ ] fix layout
 
 - [x] Set up initial display-nones ready for DOM manipulation on start
 - [x] Choose and install a google font to keep the right vibe.
@@ -57,21 +59,27 @@
 - [x] create a for loop once the scenes are created
 - [x] refactor for loop so that we have one function creating the scenes rather than looping the functions
 - [x] erase chapter logic and commit to a one-chapter system
+- [ ] Look at the scene moving logic and move functions to main
+- [ ] Create simplified sleep function/ simpler timeout
+- [ ] change song file for opening, save for win-endings
+- [ ] solve home button
+- [ ] return colours to normal if in 0 area
 
   - [ ] create logic for changing text on ending (good and bad)
   - [ ] create skip button if you have already been sent back to the beginning
 
 - [ ] create dice percentage rolls and map them to the chances (maybe a story chance object?) !MOST IMPORTANT
 
-  - [ ] fix undefined dead end issue (8,9,10) !MOST IMPORTANT
-  - [ ] Create a trigger scene object or enum, for which the specific special numbered scenes that trigger music or graphics are named.
+  - [ ] work out why option is undefined for 8,9,10, even though button remains.
+  - [ ] Create a trigger scene object or enum, for which the specific special numbered scenes that trigger music or graphics are named. -[x] colour changes
+
+    - [ ] animation changes
 
   - [ ] Music module
 
     1 [ ] Create or source music
     2 [ ] search for folie & create fx
-    3 [ ] create volume bar graphic
-    4 [ ] Create a module that starts and plays music depending on the current chapter and scene.
+    3 [ ] Create a module that starts and plays music depending on the current chapter and scene.
 
 ## APIs & Processing
 
