@@ -10,7 +10,7 @@ import {
   specialScenesArr,
   story,
   urlArray,
-} from "./ts-modules/Story/story";
+} from "./ts-modules/story";
 import type { Option } from "./types";
 import { audioSources } from "./ts-modules/music-triggers";
 
@@ -32,8 +32,6 @@ export const gameButtons = document.querySelectorAll<HTMLElement>(
   ".game-zone__btn-zone--btn"
 );
 
-const soundSettings =
-  document.querySelector<HTMLImageElement>("#sound-settings");
 const homeButton = document.querySelector<HTMLImageElement>("#home-button");
 
 //Null Check
@@ -43,7 +41,6 @@ if (
   !quoteZone ||
   !btnZone ||
   !gameButtons ||
-  !soundSettings ||
   !homeButton ||
   !begin ||
   !title ||
@@ -53,47 +50,10 @@ if (
   throw new Error(`Missing HTML div elements - failed to import`);
 }
 
-const sleeper = (ms: number) => {
+export const sleeper = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
-//------------------------------------------------------Audio controls
-// const audioContext = new AudioContext();
 
-// const sources = [music, btn1, btn2, btn3].map((src) => {
-//   const source = audioContext.createMediaElementSource(src);
-//   source.connect(audioContext.destination);
-//   return source;
-// });
-
-//connects the source to the speakers
-
-const standardVolume = 0.2;
-document.addEventListener("DOMContentLoaded", () => {
-  audioSources.forEach((a) => {
-    a.volume = standardVolume;
-  });
-});
-
-const toggleMuteSound = () => {
-  console.log(`volume is ${a.volume}`);
-  audioSources.forEach((a) => {
-    a.volume === 0 ? (a.volume = standardVolume) : (a.volume = 0);
-  });
-};
-
-const toggleMuteVolumeIcon = () => {
-  audioSources.forEach((a) => {
-    a.volume === 0
-      ? (soundSettings.src = "src/Assets/Icons/mute-icon.png")
-      : (soundSettings.src = "src/Assets/Icons/volume-icon.png");
-  });
-};
-
-soundSettings.addEventListener("click", () => {
-  console.log("mute button has been clicked");
-  toggleMuteSound();
-  toggleMuteVolumeIcon();
-});
 //----------------------------------------------------------Game state functions
 const changeOpacityValue = (n: number, ...els: HTMLElement[]): void => {
   els.forEach((el) => {

@@ -1,5 +1,5 @@
-import scenes from "../../data/parse-csv";
-import type { RawScene, Scene } from "../../types";
+import scenes from "../data/parse-csv";
+import type { RawScene, Scene } from "../types";
 
 const createScene = (scene: RawScene) => {
   return {
