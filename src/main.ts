@@ -7,6 +7,7 @@ import {
   area2SceneIds,
   area3SceneIds,
   area4SceneIds,
+  specialScenesArr,
   story,
 } from "./ts-modules/Story/story";
 import type { Option } from "./types";
@@ -14,8 +15,9 @@ import type { Option } from "./types";
 //Query Selectors:
 
 export const gameZone = document.querySelector<HTMLDivElement>("#game-zone");
-export const textZone =
-  document.querySelector<HTMLParagraphElement>("#text-zone");
+const displayZone =
+  document.querySelector<HTMLParagraphElement>("#display-zone");
+const displayText = document.querySelector<HTMLParagraphElement>("#dsp-text");
 const quoteZone = document.querySelector<HTMLDivElement>("#quote-zone");
 
 const btnZone = document.querySelector<HTMLDivElement>("#btn-zone");
@@ -35,7 +37,7 @@ const homeButton = document.querySelector<HTMLImageElement>("#home-button");
 //Null Check
 if (
   !gameZone ||
-  !textZone ||
+  !displayZone ||
   !quoteZone ||
   !btnZone ||
   !gameButtons ||
@@ -43,11 +45,15 @@ if (
   !homeButton ||
   !begin ||
   !title ||
-  !nav
+  !nav ||
+  !displayText
 ) {
   throw new Error(`Missing HTML div elements - failed to import`);
 }
 
+const sleeper = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
 //------------------------------------------------------Audio controls
 const audioContext = new AudioContext();
 const audio = new Audio("src/Assets/Audio/Effects/waves.wav");
@@ -76,20 +82,6 @@ soundSettings.addEventListener("click", () => {
   toggleMuteSound();
   toggleMuteVolumeIcon();
 });
-
-//Event Handlers
-
-// const createTimeOut = (
-//   htmlElement: HTMLElement,
-//   timer: number,
-//   ...otherElements: HTMLElement[]
-// ) => {
-//   setTimeout(() => {
-//     htmlElement.style.opacity = "";
-//     //
-//   }, timer);
-// };
-
 //----------------------------------------------------------Game state functions
 const changeOpacityValue = (n: number, ...els: HTMLElement[]): void => {
   els.forEach((el) => {
@@ -103,7 +95,7 @@ const changeSceneColours = (): void => {
   const forest = " #85de9fff";
   const red = "red";
   const newColour = [sky, sea, forest, red][gameState.areaTracker - 1];
-  textZone.style.boxShadow = "0px 0px 30px " + newColour;
+  displayZone.style.boxShadow = "0px 0px 30px " + newColour;
   gameButtons.forEach((b) => {
     b.style.boxShadow = "0px 0px 30px " + newColour;
   });
@@ -133,17 +125,29 @@ export const changeDisplayValue = (
   });
 };
 
+const displayAnimation = async (url: string, position: string) => {
+  displayZone.innerText = "";
+  displayZone.style.backgroundImage = `url(${url})`;
+  displayZone.style.backgroundSize = "cover";
+  displayZone.style.backgroundRepeat = "none";
+  displayZone.style.backgroundPosition = position;
+  await sleeper(2000);
+  displayZone.style.backgroundImage = "none";
+};
+
 const resetTrackers: Function = (): void => {
   gameState.sceneNumber = 0;
   gameState.areaTracker = 0;
 };
 
 const setUpNextScene = async (n: number) => {
-  textZone.innerText = story[n].text;
+  await displayAnimation("src/Assets/gifs/mermaid.gif", "center");
+  displayZone.innerText = story[n].text;
   gameButtons.forEach((btn, i) => {
-    btn.innerText = story[Number(n)].options[i].text;
-    btn.dataset.optionId = `${story[Number(n)].options[i].id}`;
-    console.log(story[n].options[i].id);
+    const currentScene = story[Number(n)].options[i];
+    btn.innerText = currentScene.text;
+    btn.dataset.optionId = `${currentScene.id}`;
+    console.log(currentScene.id);
     console.log(`The button at index ${i} id is ${btn.dataset.optionId}`);
     btn.style.display = "block";
     if (!btn.innerText) {
@@ -151,8 +155,10 @@ const setUpNextScene = async (n: number) => {
     }
   });
   gameState.sceneNumber = Number(n);
+  const newScene = gameState.sceneNumber;
+
   changeArea();
-  console.log(`We're in scene ${gameState.sceneNumber}`);
+  console.log(`We're in scene ${newScene}`);
   console.log(`We're in area ${gameState.areaTracker}`);
 };
 
@@ -174,8 +180,6 @@ const processSceneUI = async (button: HTMLButtonElement) => {
     story[gameState.sceneNumber].options[0].id
   );
   const id = button.dataset.optionId;
-  console.log(id);
-  console.log(button.dataset.optionId);
   let option = story[gameState.sceneNumber].options.find((opt) => opt.id == id);
   if (!option) {
     throw new Error("Couldnt find option");
@@ -190,28 +194,24 @@ const processSceneUI = async (button: HTMLButtonElement) => {
     const nextScene = option.nextId;
     console.log(`Next scene to go to is ${nextScene}`);
     /*----------------------------*/
-    /*----------------------------*/
     if (nextScene.toString().includes(",")) {
       const result = await rollDiceAndDecidePath(option);
-      console.log(`The new index generated from random is ${result}`);
       await setUpNextScene(result);
-      console.log(`Now that the scene random has been set`);
-      changeOpacityValue(1, textZone, btnZone);
+      changeOpacityValue(1, displayZone, btnZone);
       return;
       /*----------------------------*/
     } else if (nextScene.toString().includes("&")) {
       const preludeSceneID: number = await getIDForPreludeScene(option);
       await setUpNextScene(preludeSceneID);
-      textZone.classList.add("fade-out");
-      console.log("I asked the computer to fade out. Is it working?");
+      displayZone.classList.add("fade-out");
       /*----------------------------*/
     } else {
       await setUpNextScene(Number(nextScene));
-      await changeSceneColours();
+      changeSceneColours();
       changeOpacityValue(1, btnZone); //absolutely ensures opacity is on
     }
   }
-  changeOpacityValue(1, textZone);
+  changeOpacityValue(1, displayZone);
 };
 
 //----------------------------------------Opening button
@@ -233,8 +233,8 @@ begin.addEventListener("click", () => {
   // }, 10000);
   setTimeout(() => {
     changeDisplayValue("none", quoteZone);
-    changeDisplayValue("flex", textZone, btnZone);
-    changeOpacityValue(1, textZone, btnZone);
+    changeDisplayValue("flex", displayZone, btnZone);
+    changeOpacityValue(1, displayZone, btnZone);
   }, 10 /*11000*/);
 });
 
@@ -245,7 +245,6 @@ gameButtons.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const button = e.target;
-    changeOpacityValue(0, textZone, btnZone);
     console.log(`Button with id ${btn.dataset.optionId}`);
     console.log(button);
     processSceneUI(button);

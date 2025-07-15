@@ -2,6 +2,7 @@ export type RawScene = {
   sceneId: string;
   areaId: string;
   prevId: string;
+  animation: string;
   text: string;
   option1Id: string;
   option1Txt: string;
@@ -18,6 +19,7 @@ export type Scene = {
   sceneId: number;
   areaId: number;
   prevId: number | string;
+  animation: string;
   text: string;
   options: Option[];
 };

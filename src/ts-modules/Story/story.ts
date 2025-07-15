@@ -6,6 +6,7 @@ const createScene = (scene: RawScene) => {
     sceneId: scene.sceneId,
     areaId: scene.areaId,
     prevId: scene.prevId,
+    animation: scene.animation,
     text: scene.text,
     options: [
       {
@@ -39,7 +40,15 @@ const createAreaArray = (n: number) => {
   return Object.values(story)
     .filter((st) => st.areaId === n)
     .map((st) => st.sceneId);
-}; //creates arrays populated with just scene ids for each area
+}; //creates arrays populated with scene ids for each area
 
 export const [area1SceneIds, area2SceneIds, area3SceneIds, area4SceneIds] =
   Array.from({ length: 4 }, (_, i) => createAreaArray(i + 1));
+
+const createSpecialSceneArray = () => {
+  return Object.values(story)
+    .filter((st) => st.animation == "y")
+    .map((st) => st.sceneId);
+}; //creates arrays populated with scene ids for animation scenes
+
+export const specialScenesArr = createSpecialSceneArray();

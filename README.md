@@ -11,7 +11,7 @@
   - [ ] Consider both display area and background - more substantial animation in display, more minimal in background
   - [ ] insert a display none img in the so called textZone.
   - [ ] rename textZone to reflect the above.
-  - [ ] update the numbers in data to more accurately reflect scene areas
+  - [x] update the numbers in data to more accurately reflect scene areas
 
 ## SCSS
 
@@ -23,7 +23,7 @@
   - [x] 3 colour palettes
   - [ ] upload as an asset to vs code to use as a reference
   - [x] leave test data and write out the journey
-  - [ ] fix layout
+  - [x] fix layout
 
 - [x] Set up initial display-nones ready for DOM manipulation on start
 - [x] Choose and install a google font to keep the right vibe.
@@ -59,19 +59,20 @@
 - [x] create a for loop once the scenes are created
 - [x] refactor for loop so that we have one function creating the scenes rather than looping the functions
 - [x] erase chapter logic and commit to a one-chapter system
-- [ ] Look at the scene moving logic and move functions to main
+- [x] Look at the scene moving logic and move functions to main
 - [ ] Create simplified sleep function/ simpler timeout
-- [ ] change song file for opening, save for win-endings
+- [x] change song file for opening, save for win-endings
 - [ ] solve home button
 - [ ] return colours to normal if in 0 area
 
   - [ ] create logic for changing text on ending (good and bad)
   - [ ] create skip button if you have already been sent back to the beginning
 
-- [ ] create dice percentage rolls and map them to the chances (maybe a story chance object?) !MOST IMPORTANT
+- [ ] create dice percentage rolls and map them to the chances (maybe a story chance object?)
 
-  - [ ] work out why option is undefined for 8,9,10, even though button remains.
-  - [ ] Create a trigger scene object or enum, for which the specific special numbered scenes that trigger music or graphics are named. -[x] colour changes
+  - [x] work out why option is undefined for 8,9,10, even though button remains.
+
+    - [x] Create a trigger scene object or enum, for which the specific special numbered scenes that trigger music or graphics are named.
 
     - [ ] animation changes
 
