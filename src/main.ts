@@ -2,6 +2,7 @@ import "./style.scss";
 // import { endings } from "./ts-modules/Chapters/endings";
 import rollDiceAndDecidePath from "./ts-modules/roll-dice";
 import gameState from "./ts-modules/game-state";
+import { audioSources, standardVolume } from "./ts-modules/music-triggers";
 import {
   area1SceneIds,
   area2SceneIds,
@@ -12,7 +13,6 @@ import {
   urlArray,
 } from "./ts-modules/story";
 import type { Option } from "./types";
-import { audioSources } from "./ts-modules/music-triggers";
 
 //Query Selectors:
 
@@ -27,6 +27,7 @@ const btnZone = document.querySelector<HTMLDivElement>("#btn-zone");
 const nav = document.querySelector("nav");
 const begin = document.querySelector<HTMLButtonElement>("#begin");
 const title = document.querySelector<HTMLHeadElement>("#title");
+const muteButton = document.querySelector<HTMLImageElement>("#mute-button");
 
 export const gameButtons = document.querySelectorAll<HTMLElement>(
   ".game-zone__btn-zone--btn"
@@ -45,7 +46,8 @@ if (
   !begin ||
   !title ||
   !nav ||
-  !displayText
+  !displayText ||
+  !muteButton
 ) {
   throw new Error(`Missing HTML div elements - failed to import`);
 }
@@ -98,6 +100,26 @@ export const changeDisplayValue = (
     el.style.display = value;
   });
 };
+
+const toggleMuteSound = () => {
+  audioSources.forEach((a) => {
+    a.volume === 0 ? (a.volume = standardVolume) : (a.volume = 0);
+  });
+};
+
+const toggleMuteVolumeIcon = () => {
+  audioSources.forEach((a) => {
+    a.volume === 0
+      ? (muteButton.src = "src/Assets/Icons/mute-icon.png")
+      : (muteButton.src = "src/Assets/Icons/volume-icon.png");
+  });
+};
+
+muteButton.addEventListener("click", () => {
+  console.log("mute button has been clicked");
+  toggleMuteSound();
+  toggleMuteVolumeIcon();
+});
 
 const displayAnimation = async (url: string, position: string) => {
   displayZone.innerText = "";
@@ -227,6 +249,9 @@ const processSceneUI = async (button: HTMLButtonElement) => {
     } else if (nextScene.toString().includes("&")) {
       const preludeSceneID: number = await getIDForPreludeScene(option);
       await setUpNextScene(preludeSceneID);
+      console.log(
+        `prelude scene ID is ${preludeSceneID} and scene set up is ${gameState.sceneNumber}`
+      );
       await playEnding();
       resetTrackers();
       resetDOMAfterEnding();
@@ -242,14 +267,13 @@ const processSceneUI = async (button: HTMLButtonElement) => {
 
 //----------------------------------------Opening button
 begin.addEventListener("click", () => {
-  // if (audioContext.state === "suspended") audioContext.resume();
   changeOpacityValue(0, begin, title);
   changeDisplayValue("none", quoteZone, begin, title); //to delete
   if (gameState.attemptTracker) {
     changeDisplayValue("none", quoteZone, begin, title);
-    return;
   }
   // setTimeout(() => {
+  // opening.play();
   //   toggleDisplay(quoteZone, begin, title);
   // }, 1000);
   // setTimeout(() => {
