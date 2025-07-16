@@ -149,6 +149,12 @@ const resetDOMAfterEnding = () => {
   changeSceneColours("#586b79ff");
 };
 
+homeButton.addEventListener("click", () => {
+  resetTrackers();
+  resetDOMAfterEnding();
+  gameState.attemptTracker++;
+});
+
 const setUpNextScene = async (n: number) => {
   gameState.sceneNumber = Number(n);
   const newScene = gameState.sceneNumber;
@@ -190,11 +196,11 @@ const playEnding = async (): Promise<void> => {
     gameZone.removeChild(lossMessage);
   } else if (endingId.includes("<w")) {
     const winMessage = document.createElement("p");
-    if (endingId === "<w1>") gameState.w1++;
-    else if (endingId === "<w2>") gameState.w2++;
-    else if (endingId === "<w3>") gameState.w3++;
-    else if (endingId === "<w4>") gameState.w4++;
-    else console.log("ending ID doesnt match");
+    if (endingId === "<w1>" && !gameState.w1) gameState.w1++;
+    else if (endingId === "<w2>" && !gameState.w2) gameState.w2++;
+    else if (endingId === "<w3>" && !gameState.w3) gameState.w3++;
+    else if (endingId === "<w4>" && !gameState.w4) gameState.w4++;
+    else return;
     winMessage.classList.add("message");
     gameState.winTracker++;
     winMessage.textContent = `You found your way and passed on!
