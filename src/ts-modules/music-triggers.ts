@@ -13,14 +13,26 @@ const muteButton = document.querySelector<HTMLImageElement>("#mute-button");
 if (!muteButton) {
   throw new Error("Could not obtain mute button element");
 }
+const standardVolume = 0.2;
+
+const resetVolumeToStandard = async (): Promise<void> => {
+  audioSources.forEach((a) => {
+    a.volume = standardVolume;
+  });
+};
+document.addEventListener("DOMContentLoaded", () => {
+  resetVolumeToStandard();
+});
 
 const gameTriggers: { [key: number]: [HTMLAudioElement, string, string] } = {
+  1: [music, "src/Assets/Audio/Music/progress.mp3", "win reincarnated"],
+  2: [music, "src/Assets/Audio/Music/theonewhowalksthevoid.mp3", "win staying"],
   43: [music, "src/Assets/Audio/Music/progress.mp3", "win reincarnated"],
   44: [
     music,
     "src/Assets/Audio/Music/theonewhowalksthevoid.mp3",
     "win staying",
-  ], // need to fix bounce
+  ],
   52: [folie, "src/Assets/Audio/Effects/waves.wav", "ocean tide"],
 };
 
@@ -32,31 +44,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+const fadeOutSound: Function = async (
+  sound: HTMLAudioElement
+): Promise<void> => {
+  while (sound.volume > 0.01) {
+    sound.volume -= 0.008;
+    console.log(sound.volume);
+    await sleeper(100);
+  }
+  sound.pause();
+  sound.currentTime = 0;
+};
+
+const findCurrentlyPlaying = (): HTMLAudioElement | null => {
+  if (!music.paused) return music;
+  else if (!folie.paused) return folie;
+  else return null;
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   gameButtons.forEach((btn) => {
     btn.addEventListener("click", async () => {
       const trigger = gameTriggers[gameState.sceneNumber];
+      if (findCurrentlyPlaying()) {
+        const sound = findCurrentlyPlaying();
+        await fadeOutSound(sound);
+      }
       if (trigger) {
-        trigger[0].src = trigger[1];
-        trigger[0].play();
-        await sleeper(20000);
-        while (trigger[0].volume > 0.01) {
-          trigger[0].volume -= 0.01;
-          console.log(trigger[0].volume);
-          await sleeper(100);
-        }
-        trigger[0].pause();
-
-        trigger[0].currentTime = 0;
+        await resetVolumeToStandard();
+        const audioFile = trigger[0];
+        const source = trigger[1];
+        audioFile.src = source;
+        audioFile.play();
       }
     });
-  });
-});
-
-const standardVolume = 0.2;
-document.addEventListener("DOMContentLoaded", () => {
-  audioSources.forEach((a) => {
-    a.volume = standardVolume;
   });
 });
 
