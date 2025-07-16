@@ -1,97 +1,58 @@
-# Adventure Game
+# THE ONE WHO WALKS THE VOID
 
-## HTML
+A choose-your-own adventure game with an atmopshere inspired by modern platformers like Limbo & Inside. It's for anyone who enjoys story driven games, is simple to use and has over 100 scenes you can land in.
 
-- [x] Create a container that includes elements for text, and a container to hold all elements
-- [x] Create game heading and start button (decide on title)
-- [x] Create quote for opening
-- [x] research how to include music & create relevant element.
-- [x] fixed floating mute button
-- [ ] relevant floating & animated gifs/ svgs (research correct format for animations)
-  - [ ] Consider both display area and background - more substantial animation in display, more minimal in background
-  - [ ] insert a display none img in the so called textZone.
-  - [ ] rename textZone to reflect the above.
-  - [x] update the numbers in data to more accurately reflect scene areas
+The game is created with vite so it requires running build before pushing to git. It uses Papaparse to parse CSVs into data which is in the JSON file. Also cypress is available for testing if needed in the JSON and file structure.
 
-## SCSS
+## How to use the thing
 
-- [x] Story content
-- [x] Choose a quote for inspiration for the real story
+![![alt text](<Screenshot 2025-07-16 at 21.34.56.png>)](flow-map.png)
 
-  - [x] Externally create
-    - [x] a route map
-  - [x] 3 colour palettes
-  - [ ] upload as an asset to vs code to use as a reference
-  - [x] leave test data and write out the journey
-  - [x] fix layout
+The project is built around the data in the src/data folder:
+'scenes.csv'.
+This is parsed using Papaparse and imported into the story module, at which point it's converted into an object.
+The other backbone is the game state.
 
-- [x] Set up initial display-nones ready for DOM manipulation on start
-- [x] Choose and install a google font to keep the right vibe.
-- [x] choose background colour & setup palette (likely B&W for most but want colours to change in certain chapters);
-- [x] music mute and sound graphic needed for the main page
-- [x] Set up palette
-- [x] Set up device mixins
-- [x] Position options round the circle in equal measure
-- [x] format buttons overall
-- [x] combine 'chapter 1' with quote
-- [x] rethink page layout since rotate animation too time consuming for too little payoff
-- [ ] create slider volume bar
+Each button when clicked looks for the current scene number, then finds the option array within it.
 
-## Logic
+It matches it's own number saved in the element with the right button out of the 3, then reads the next scene id.
+Lastly it goes back to the scenes and finds the new text needed for the scene.
 
-- [x] Query Selectors
-- [x] Event handlers
-- [x] Console log dice roll logic to confirm checks are taking place
-      as intended
+The game has a few modules, the story one which contains a few filtered arrays that check whether the CSV has an animation
+file location in its data, and if so uses it to display in the game. The other key module is handling the songs and applying them to the relevant scenes. NOTE: the data for which scenes include which songs is not in the CSV.
 
-  - [x] Button complete
+![alt text](<Screenshot 2025-07-16 at 21.08.30.png>)
 
-    1 [x] to be put inside the event listener (when button is clicked)
-    2 [x] should change the text of the text-zone and the button-zones
-    3 [x] should fade between
-    4 [x] Should now dissappear if textContent is '' via opacity (keeps buttons in place);
+The planning that took place to align all the different paths was much easier to visualise in a Canva file. This is relatively accurate to what ended up in the final game, but is better as a general aid. When looking for exact pathways, the CSV is the right place to go.
 
-- [x] Upload more robust story file
-- [x] Now that testing is complete, upload full story file of real story.
-- [ ] Create logic for win and lose con
-- [x] create logic for chance die
-- [x] update dice logic to only have 2 options and to be 6 / 2
-- [x] create a for loop once the scenes are created
-- [x] refactor for loop so that we have one function creating the scenes rather than looping the functions
-- [x] erase chapter logic and commit to a one-chapter system
-- [x] Look at the scene moving logic and move functions to main
-- [ ] Create simplified sleep function/ simpler timeout
-- [x] change song file for opening, save for win-endings
-- [ ] solve home button
-- [ ] return colours to normal if in 0 area
+<img src='Adventure Path Flow.png' alt="Alt text" width="1000px">
 
-  - [ ] create logic for changing text on ending (good and bad)
-  - [ ] create skip button if you have already been sent back to the beginning
+# How to contribute to the thing
 
-- [ ] create dice percentage rolls and map them to the chances (maybe a story chance object?)
+To contribute, with permissions, you would need to add data to the csv for further scenes. Note that there's a code pattern that the handling functions look for. The rules are:
 
-  - [x] work out why option is undefined for 8,9,10, even though button remains.
+        1.  If there's a comma between 2 nextIds in option1NextId, option2NextId etc, the two will be split based on the dice role module, with the left side being more likely.
 
-    - [x] Create a trigger scene object or enum, for which the specific special numbered scenes that trigger music or graphics are named.
+        2.  If there is an ending, in the scene leading to it, place an & after the nextId which will lead to a different animation. Then, in the nextIds for the actual ending scene, type either < l > or < w > (without spaces). There is logic for 4 endings at the moment so this would have to be adjusted.
 
-    - [ ] animation changes
+## Contributions
 
-  - [ ] Music module
+    This was a solo project including the animation and music. However I would not have been able to do it without the help of the Splice sound library for organic sounds like singing or strings, which I have paid to own so have no licensing issues.
 
-    1 [ ] Create or source music
-    2 [ ] search for folie & create fx
-    3 [ ] Create a module that starts and plays music depending on the current chapter and scene.
+## Acknowledgements
 
-## APIs & Processing
+    I would like to acknowledge also the video library Pexels.com as some of the more complex animations were created by splitting open source videos into photographs and tracing each one stylistically.
 
-### CSV Parsing Through Papaparse
+## License
 
-- From Vite, we have a CSV converter so that we can use a local spreadsheet in src/ data that will provide all the options for the responses object. This avoids hundreds of lines of code.
-  The vite.config.ts is what allows me to use this in the project.
-- Further setup was needed by adding a types.d.ts file, which declares csv files as an any type and therefore can be imported without confusion from TS.
-- I then updated the tsconfig file to 'include' the types file, and this led to it work.
-- A large portion of time was spent trying to figure out vite csv converter without being able to find the documentation. I eventually restarted with Papaparse as it is more supported.
+All rights reserved.
 
-### Web Player API
+You may download and play this game for personal, non-commercial use only.
 
-- I had to learn how to create an AudioContext object and setup through the web player api
+You may not:
+
+- Copy or modify any part of the game, including the source code, images, audio, or other assets
+- Distribute the game or its files
+- Use the code or assets in your own projects
+
+The game is provided as-is, without warranty of any kind.

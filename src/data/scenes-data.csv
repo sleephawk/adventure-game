@@ -8,7 +8,7 @@ sceneId,prevId,areaId,animation,text,option1Id,option1Txt,option1NextId,option2I
 6,5,1,,"The smoke rings seem to be made up of spirits, or people, or the shape of either, it's hard to tell. Sometimes you see a swimming mermaid like shape, next just a speaking mouth; it's always shifting",19,Leave the telescope,10,20,Try to move the telescope to look around,7,21,,
 7,"5, 6",1,,"It's huge, and won't easily budge",22,Leave the telescope,10,23,Look for another way to move it,"8,9",24,,
 8,7,1,,You find nothing of note,25,Go back,7,26,,,27,,
-9,7,1,./Assets/gifs/dice.gif,"You glance around the sparce room, and, out from under a pile of papers depicting more runes, you see the gleam of an old-timey compass. As you touch it, the arrow leans, and the telescope follows the same direction. It's like it knew what you were trying to do. Looking through the lense, you see a dark shape block out the rings for a second. It looks like...a giant crow? It must be at least 30ft across!",28,Leave the telescope,10,29,,,30,,
+9,7,1,y,"You glance around the sparce room, and, out from under a pile of papers depicting more runes, you see the gleam of an old-timey compass. As you touch it, the arrow leans, and the telescope follows the same direction. It's like it knew what you were trying to do. Looking through the lense, you see a dark shape block out the rings for a second. It looks like...a giant crow? It must be at least 30ft across!",28,Leave the telescope,10,29,,,30,,
 10,"6,7,8,9, 15 ",1,,"Now that you've seen what's out there, you know what you've got to do! ",31,Head towards the rings.,12,32,,,33,,
 11,2,1,,"You look down but there's no end in sight, like looking at a dot that beams out the building like a ray of light from infinite distance",34,Go back,2,35,,,36,,
 12,10,1,,"As you step out into the dark again, you realise, your powers of flight are limitless:  you choose a direction, and you go go go. What are you? You still feel like you, but  sense doesn't seem to be a part of it",37,Keep going towards the rings,15,38,Fly into the void,16,39,Fly back the way you came,13
@@ -31,10 +31,10 @@ sceneId,prevId,areaId,animation,text,option1Id,option1Txt,option1NextId,option2I
 29,"26, 28",1,,"""It's a lot, I'm very aware"" she smiles, sympathetic. ""Let me help you. You can't just jump into the pool, but you can look into the water, so to speak, and that's really the last step towards getting in there, simple as it sounds.""",88,Look?,31,89,,,90,,
 30,"19, 21",1,,"Spirits breeze through your fingers without care, and you can see more clearly a range of emotions and movements represented in the shades.",91,Greet the people,19,92,Look into the centre of the rings,21,93,,
 31,"27,29",1,,"""If you look into the pool, you'll see what you know as your former life. If you can face it and answer the questions it poses honestly, you'll be ready to embark on your next life on earth. If you can't, well you're kind of here until you can. The only alternative we've ever seen is stealing a feather from the crow to bypass the guardrails, but that's extremely risky, and we don't know what kind of life waits for you if you succeed. Well...what would you like to do?""",94,Look into the pool,32,95,Go after the crow feather.,45,96,,
-32,31,1,,"As you gaze into the ring, nothing happens at first. However, the longer you look, the more the surface seems to glisten and ripple. You see your face. You are:",97,img,33,98,img,34,99,img,35
+32,31,1,,"As you gaze into the ring, nothing happens at first. However, the longer you look, the more the surface seems to glisten and ripple. You see your face. You are:",97,A warrior,33,98,A sage,34,99,A creature of some kind,35
 33,32,1,,"Of course, it seems so clear now. Your body instantly forms around you and you feel your full self again. ",100,Look deeper into the pool,36,101,,,102,,
 34,32,1,,"Yes, yes, you feel your body form around you, and you suddenly feel your full self again. ",103,Look deeper into the pool,36,104,,,105,,
-35,32,1,,"Yes, an animal of some kind, perhaps a cat or dog? Budgie or badger? ",106,Cat,36,107,Budgie,36,108,Badger,36
+35,32,1,,"Yes, an animal of some kind, perhaps a dog? Turtle or jellyfish? ",106,Dog,36,107,Turtle,36,108,Jellyfish,36
 36,"33, 34, 35",1,,"Your life rushes through you like a film projected into every molecule,  a cosmic zoetrope. If you could describe yourself in a few words, what would the be?",109,Kind,37,110,Strong,37,111,Fluffy,37
 37,36,1,,"Yes, of course, that makes sense. If you could change one thing, what would it be?",112,Worry less,38,113,Live more,38,114,Eat more treats,38
 38,37,1,,"No creature has lived a perfect life, not even those who are enlightened. So in your next life, you need to?",115,Explore the world,39,116,Change the world,39,117,Have more fun than the whole world,39
@@ -94,7 +94,7 @@ What am I?",259,The Ocean,115&,260,Death,82,261,Fate,115&
 88,87,3,,You hear a voice above somewhere 'More trees is it? Hehehe....',265,Turn left,89,266,Turn right,91,267,,
 89,"87, 88",3,,"Well would you look at that, you think, more trees. You wonder if entering this forest was such a good idea.",268,Turn left,90,269,,,270,,
 90,"89, 113",3,,You hear the caw or bark of some huge creature high above the canopy.,271,Turn left,91,272,Turn right,91,273,,
-91,"88, 90",3,./Assets/gifs/figure.gif,A face appears in your minds eye. It's too fast to make sense of.,274,Turn left,93,275,Turn right,94,276,,
+91,"88, 90",3,./Assets/gifs/Devil.gif,A face appears in your minds eye. It's too fast to make sense of.,274,Turn left,93,275,Turn right,94,276,,
 92,"91, 94",3,,"""WARMER"" A shrill shriek erupts from above somewhere, and you immediately can smell....smoke.",277,Turn left,97,278,Turn right,98,279,,
 93,"91, 109, 110",3,,"You feel like someones behind you, but when you look there's nothing but woodland.",280,Turn left,94,281,Turn right,94,282,,
 94,"93, 109",3,,You hear the mock roar of a lion followed by laughter.,283,Turn left,95,284,Turn right,92,285,,
