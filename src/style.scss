@@ -97,25 +97,6 @@ audio {
     flex-direction: column;
   }
 
-  &__quote-zone {
-    display: none;
-    opacity: 0;
-    width: 60%;
-    flex-direction: column;
-    gap: 30px;
-    transition: opacity 1s linear;
-
-    &--text {
-      font-style: italic;
-      transition: opacity 1s linear;
-    }
-
-    &--author {
-      font-weight: bolder;
-      transition: opacity 1s linear;
-    }
-  }
-
   &__display-zone {
     @include mixin.hidden;
     flex-direction: column;

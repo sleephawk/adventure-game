@@ -19,7 +19,6 @@ export const gameZone = document.querySelector<HTMLDivElement>("#game-zone");
 const displayZone =
   document.querySelector<HTMLParagraphElement>("#display-zone");
 const displayText = document.querySelector<HTMLParagraphElement>("#dsp-text");
-const quoteZone = document.querySelector<HTMLDivElement>("#quote-zone");
 
 const btnZone = document.querySelector<HTMLDivElement>("#btn-zone");
 
@@ -38,7 +37,6 @@ const homeButton = document.querySelector<HTMLImageElement>("#home-button");
 if (
   !gameZone ||
   !displayZone ||
-  !quoteZone ||
   !btnZone ||
   !gameButtons ||
   !homeButton ||
@@ -273,25 +271,11 @@ const processSceneUI = async (button: HTMLButtonElement) => {
 //----------------------------------------Opening button
 begin.addEventListener("click", () => {
   changeOpacityValue(0, begin, title);
-  changeDisplayValue("none", quoteZone, begin, title); //to delete
-  if (gameState.attemptTracker) {
-    changeDisplayValue("none", quoteZone, begin, title);
-  }
-  // setTimeout(() => {
-  // opening.play();
-  //   toggleDisplay(quoteZone, begin, title);
-  // }, 1000);
-  // setTimeout(() => {
-  //   toggleVisibility(quoteZone);
-  // }, 1200);
-  // setTimeout(() => {
-  //   toggleVisibility(quoteZone);
-  // }, 10000);
+  changeDisplayValue("none", begin, title);
   setTimeout(() => {
-    changeDisplayValue("none", quoteZone);
     changeDisplayValue("flex", displayZone, btnZone);
     changeOpacityValue(1, displayZone, btnZone);
-  }, 10 /*11000*/);
+  }, 100);
 });
 
 gameButtons.forEach((btn) => {
