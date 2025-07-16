@@ -4,11 +4,12 @@ import { sleeper } from "../main";
 
 const music = new Audio();
 const folie = new Audio();
+const fx = new Audio();
 export const opening = new Audio();
 const btn1 = new Audio("src/Assets/Audio/Effects/btn1.wav");
 const btn2 = new Audio("src/Assets/Audio/Effects/btn2.wav");
 const btn3 = new Audio("src/Assets/Audio/Effects/btn3.wav");
-export const audioSources = [music, folie, btn1, btn2, btn3];
+export const audioSources = [music, fx, folie, btn1, btn2, btn3];
 
 export const standardVolume = 0.2;
 
@@ -56,8 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
 const fadeOutSound: Function = async (
   sound: HTMLAudioElement
 ): Promise<void> => {
-  while (sound.volume > 0.1) {
-    sound.volume -= 0.01;
+  while (sound.volume > 0.05) {
+    sound.volume -= 0.001;
     console.log(sound.volume);
     await sleeper(100);
   }
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const source = trigger[1];
         audioFile.src = source;
         audioFile.play();
-        await sleeper(24000);
+        await sleeper(20000);
         fadeOutSound(audioFile);
       }
     });
