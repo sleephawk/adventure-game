@@ -1,5 +1,4 @@
 import "./style.scss";
-// import { endings } from "./ts-modules/Chapters/endings";
 import rollDiceAndDecidePath from "./ts-modules/roll-dice";
 import gameState from "./ts-modules/game-state";
 import { audioSources, standardVolume } from "./ts-modules/music-triggers";
@@ -110,8 +109,8 @@ const toggleMuteSound = () => {
 const toggleMuteVolumeIcon = () => {
   audioSources.forEach((a) => {
     a.volume === 0
-      ? (muteButton.src = "src/Assets/Icons/mute-icon.png")
-      : (muteButton.src = "src/Assets/Icons/volume-icon.png");
+      ? (muteButton.src = "./Assets/Icons/mute-icon.png")
+      : (muteButton.src = "./Assets/Icons/volume-icon.png");
   });
 };
 
