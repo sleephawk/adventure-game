@@ -16,7 +16,6 @@ export const standardVolume = 0.5;
 const resetVolumeToStandard = async (): Promise<void> => {
   audioSources.forEach((a) => {
     a.volume = standardVolume;
-    console.log(`current volume is ${a.volume}`);
   });
 };
 document.addEventListener("DOMContentLoaded", () => {
@@ -85,13 +84,14 @@ export const fadeOutSound: Function = async (
 ): Promise<void> => {
   while (sound.volume > 0.01) {
     sound.volume -= 0.009;
-    console.log(sound.volume);
     await sleeper(100);
   }
   sound.pause();
   sound.currentTime = 0;
   resetVolumeToStandard();
-  console.log(`current volume is ${sound.volume}`);
+  console.log(
+    `current volume is ${sound.volume} after reseting to standard volume.`
+  );
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -100,11 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const trigger = gameTriggers[gameState.sceneNumber];
 
       if (trigger) {
-        console.log(`I was triggered by ${trigger}`);
+        console.log(`Sound file was triggered here`);
 
         const audioFile = trigger[0];
         const source = trigger[1];
-        console.log(`current volume is ${audioFile.volume}`);
+        console.log(
+          `current volume is ${audioFile.volume} before playing song.`
+        );
         audioFile.src = source;
         audioFile.play();
         audioFile.onended = () => {
@@ -113,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         };
       } else {
-        console.log("cant find sound");
+        return;
       }
     });
   });

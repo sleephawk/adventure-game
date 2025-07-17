@@ -1,5 +1,5 @@
 import "./style.scss";
-import rollDiceAndDecidePath from "./ts-modules/roll-dice";
+import decidePath from "./ts-modules/roll-dice";
 import gameState from "./ts-modules/game-state";
 import { audioSources, standardVolume } from "./ts-modules/music-triggers";
 import {
@@ -244,7 +244,7 @@ const processSceneUI = async (button: HTMLButtonElement) => {
     console.log(`Next scene to go to is ${nextScene}`);
     /*----------------------------*/
     if (nextScene.toString().includes(",")) {
-      const result = await rollDiceAndDecidePath(option);
+      const result = await decidePath(option, 33, 6);
       await setUpNextScene(result);
       changeOpacityValue(1, displayZone, btnZone);
       return;
@@ -285,8 +285,7 @@ gameButtons.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     if (!(e.target instanceof HTMLButtonElement)) return;
     const button = e.target;
-    console.log(`Button with id ${btn.dataset.optionId}`);
-    console.log(button);
+    console.log(`The button clicked has an id of ${btn.dataset.optionId}`);
     processSceneUI(button);
   });
 });
