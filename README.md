@@ -1,5 +1,3 @@
-<img src="public/sh.svg" alt='Alt-text' width='100px'>
-
 # THE ONE WHO WALKS THE VOID
 
 A choose-your-own adventure game with an atmopshere inspired by modern platformers like Limbo & Inside. It's for anyone who enjoys story driven games, is simple to use and has over 100 scenes you can land in.
@@ -10,22 +8,24 @@ The game is created with vite so it requires running build before pushing to git
 
 ![![alt text](<Screenshot 2025-07-16 at 21.34.56.png>)](flow-map.png)
 
-The project is built around the data in the src/data folder:
-'scenes.csv'.
-This is parsed using Papaparse and imported into the story module, at which point it's converted into an object.
-The other backbone is the game state.
+        The project is built around the data in the src/data folder: 'scenes.csv'.
+    This is parsed using Papaparse and imported into the story module, at which point it's converted into an object.
+    The other backbone is the game state.
 
-Each button when clicked looks for the current scene number, then finds the option array within it.
+    Each button when clicked looks for the current scene number, then finds the option array within it.
 
-It matches it's own number saved in the element with the right button out of the 3, then reads the next scene id.
-Lastly it goes back to the scenes and finds the new text needed for the scene.
+    It matches it's own number saved in the element with the right button out of the 3, then reads the next scene id.
+    Lastly it goes back to the scenes and finds the new text needed for the scene.
 
-The game has a few modules, the story one which contains a few filtered arrays that check whether the CSV has an animation
-file location in its data, and if so uses it to display in the game. The other key module is handling the songs and applying them to the relevant scenes. NOTE: the data for which scenes include which songs is not in the CSV.
+    The game has a few modules, the story one which contains a few filtered arrays that check whether the CSV has an  animation file location in its data, and if so uses it to display in the game. The other key module is handling the songs and applying them to the relevant scenes. NOTE: the data for which scenes include which songs is not in the CSV.
 
-![alt text](<Screenshot 2025-07-16 at 21.08.30.png>)
+![alt text](console.png)
 
-The planning that took place to align all the different paths was much easier to visualise in a Canva file. This is relatively accurate to what ended up in the final game, but is better as a general aid. When looking for exact pathways, the CSV is the right place to go.
+     In terms of testing and keeping track of the huge amount of data, you will need to follow console logs to check and find out if any unexpected routes have been taken or any problems have occurred. This is also extremely useful when assigning sounds with the gameTriggers object in music triggers, as it allows you to step into the view of the user and know where sfx could or should be in the story sequence.
+
+![alt text](csv.png)
+
+        The planning that took place to align all the different paths was much easier to visualise in a Canva file. This is relatively accurate to what ended up in the final game, but is better as a general aid. When looking for exact pathways, the CSV is the right place to go.
 
 <img src='Adventure Path Flow.png' alt="Alt text" width="1000px">
 
