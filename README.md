@@ -1,3 +1,5 @@
+<img src="public/sh.svg" alt='Alt-text' width='100px'>
+
 # THE ONE WHO WALKS THE VOID
 
 A choose-your-own adventure game with an atmopshere inspired by modern platformers like Limbo & Inside. It's for anyone who enjoys story driven games, is simple to use and has over 100 scenes you can land in.

@@ -3,9 +3,3 @@
     @content;
   }
 }
-
-@mixin hd {
-  @media only screen and (min-width: 1720px) {
-    @content;
-  }
-}

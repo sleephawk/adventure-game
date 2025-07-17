@@ -27,8 +27,12 @@ $font: "Libertinus Math", system-UI;
   flex-grow: 1;
   padding: 0;
   margin: 0; //reset defaults
+  @include devices.phone {
+    overflow: hidden;
+  }
 }
 //---------------------------------Elements
+
 h1 {
   font-size: 5rem;
   position: relative;
@@ -60,6 +64,10 @@ button {
   text-align: center;
   cursor: pointer;
   transition: opacity 1s linear;
+  @include devices.phone {
+    width: 90px;
+    height: 90px;
+  }
 }
 
 button:hover,
@@ -110,6 +118,12 @@ audio {
     z-index: 1;
     transition: opacity 1s linear, transform 2s linear;
     box-shadow: 0px 0px 30px $paynes-grey;
+    @include devices.phone {
+      width: 150px;
+      min-height: 150px;
+      font-size: 0.75rem;
+      bottom: 70px;
+    }
     &--text {
       transition: display 3s ease-in;
     }
@@ -123,12 +137,14 @@ audio {
     bottom: 50px;
     box-sizing: border-box;
     transition: opacity 1s linear;
+    max-width: 80%;
     @include devices.phone {
       flex-direction: row;
       gap: 50px;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
+      bottom: 70px;
     }
 
     &--btn {
@@ -138,7 +154,7 @@ audio {
       @include devices.phone {
         box-shadow: 0px 0px 30px $paynes-grey;
         border-radius: 0;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         padding: 10px;
       }
     }
