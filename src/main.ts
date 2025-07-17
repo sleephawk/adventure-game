@@ -149,7 +149,8 @@ const resetDOMAfterEnding = () => {
 homeButton.addEventListener("click", () => {
   if (
     story[gameState.sceneNumber].options[0].nextId === "<l>" ||
-    story[gameState.sceneNumber].options[0].nextId.includes("<w")
+    story[gameState.sceneNumber].options[0].nextId.includes("<w") ||
+    story[gameState.sceneNumber].options[0].nextId.includes("&")
   ) {
     return;
   }

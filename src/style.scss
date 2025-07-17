@@ -143,11 +143,12 @@ audio {
     max-width: 80%;
     @include devices.phone {
       flex-direction: row;
-      gap: 50px;
+      gap: 30px;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
       bottom: 70px;
+      max-width: 70%;
     }
 
     &--btn {
@@ -184,7 +185,7 @@ audio {
   }
 }
 .fade-out {
-  animation: fade-out 13s ease-in forwards;
+  animation: fade-out 15s ease-in forwards;
 }
 
 .message {
