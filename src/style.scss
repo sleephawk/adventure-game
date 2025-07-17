@@ -91,6 +91,9 @@ audio {
   position: relative;
   bottom: 50px;
   transition: opacity 1s linear;
+  @include devices.phone {
+    bottom: 80px;
+  }
 }
 
 .game-zone {
