@@ -196,7 +196,7 @@ const playEnding = async (): Promise<void> => {
     lossMessage.textContent = `Do not fret. Where one path ends, another always begins. You will find your way.`;
     await sleeper(13000);
     gameZone.appendChild(lossMessage);
-    await sleeper(5000);
+    await sleeper(6000);
     gameZone.removeChild(lossMessage);
   } else if (endingId.includes("<w")) {
     const winMessage = document.createElement("p");
@@ -213,7 +213,7 @@ const playEnding = async (): Promise<void> => {
      possible winning endings.`;
     await sleeper(13000);
     gameZone.appendChild(winMessage);
-    await sleeper(5000);
+    await sleeper(6000);
     gameZone.removeChild(winMessage);
   }
 };
