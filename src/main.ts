@@ -194,9 +194,9 @@ const playEnding = async (): Promise<void> => {
     lossMessage.classList.add("message");
     gameState.attemptTracker++;
     lossMessage.textContent = `Do not fret. Where one path ends, another always begins. You will find your way.`;
-    await sleeper(15000);
+    await sleeper(13000);
     gameZone.appendChild(lossMessage);
-    await sleeper(3000);
+    await sleeper(5000);
     gameZone.removeChild(lossMessage);
   } else if (endingId.includes("<w")) {
     const winMessage = document.createElement("p");
@@ -211,9 +211,9 @@ const playEnding = async (): Promise<void> => {
      You have won ${gameState.winTracker} times and have completed  
      ${gameState.w1 + gameState.w2 + gameState.w3 + gameState.w4}/4 
      possible winning endings.`;
-    await sleeper(15000);
+    await sleeper(13000);
     gameZone.appendChild(winMessage);
-    await sleeper(3000);
+    await sleeper(5000);
     gameZone.removeChild(winMessage);
   }
 };
